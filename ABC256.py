@@ -70,3 +70,53 @@ def C():
 
     print(count)
 
+
+'''
+あと1問だけTLEだったからマジ惜しい
+'''
+def D_TLE():
+    N = int(input())
+
+    res = [0]*(2*10**5)
+    for i in range(N):
+        L, R = map(int, input().split())
+        start = L-1
+        stop = R-1
+        res[start:stop] = [1]*(stop-start)
+
+    old = 0
+    for i in range(len(res)):
+        if old==0 and res[i]==1:
+            X = i+1
+        
+        if old==1 and res[i]==0:
+            Y = i+1
+            print(X, Y)
+        
+        old = res[i]
+
+
+def D():
+    N = int(input())
+    LR = []
+    for i in range(N):
+        L, R = map(int, input().split())
+        LR.append([L, R])
+
+    LR = sorted(LR, key=lambda x: x[0])
+
+    X = []
+    Y = []
+    for i in range(N):
+        l = LR[i][0]
+        r = LR[i][1]
+
+        if len(X)==0 or Y[-1] < l:
+            X.append(l)
+            Y.append(r)
+        else:
+            if Y[-1] < r:
+                Y[-1] = r
+
+    for i in range(len(X)):
+        print(X[i], Y[i])

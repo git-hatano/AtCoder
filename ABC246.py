@@ -76,6 +76,40 @@ def test3():
     print(sum(prices))
 
 
-if __name__=='__main__':
+def C_TLE():
+    N, K, X = map(int, input().split())
+    A = list(map(int, input().split()))
 
-    test1()
+    while K>0:
+        A = sorted(A, reverse=True)
+        A[0] = max(A[0]-X, 0)
+        K -= 1
+        total = sum(A)
+
+        if total==0:
+            break
+
+    print(total)
+
+
+def C():
+    N, K, X = map(int, input().split())
+    A = list(map(int, input().split()))
+
+    # Xより高いものに優先して割り当てる
+    for i in range(N):
+        if K>0 and A[i]>=X:
+            k = min(A[i]//X, K)
+            A[i] = max(A[i]-k*X, 0)
+            K -= k
+
+    # 全てX未満になったので、値段が大きい方から1枚ずつ割り当てる
+    A = sorted(A, reverse=True)
+    for i in range(N):
+        if K>0:
+            A[i] = max(A[i]-X, 0)
+            K -= 1
+        else:
+            break
+
+    print(sum(A))

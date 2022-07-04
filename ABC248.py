@@ -47,20 +47,18 @@ if False:
 
 
 # C
-N, M, K = map(int, input().split())
-A_list = [1]*N
+if False:
+    N, M, K = map(int, input().split())
+    A_list = [1]*N
 
-cnt = 0
-for n in range(N):
-    for m in range(M):
-        A_list[n] = m+1
+    cnt = 0
+    for n in range(N):
+        for m in range(M):
+            A_list[n] = m+1
 
-        if sum(A_list) <= K:
-            cnt+=1
+            if sum(A_list) <= K:
+                cnt+=1
         
-
-
-
 # D
 if False:
     import numpy as np
@@ -81,3 +79,27 @@ if False:
 
         print( np.sum( A_list[L:R]==X ) )
    
+
+def D():
+    N, M, K = map(int, input().split())
+    mod = 998244353
+
+    dp = [[0]*(K+1) for i in range(N+1)]
+    dp[0][0] = 1
+
+    for x in range(1, N+1):
+        for y in range(0, K+1):
+            now = 0
+            for i in range(1, M+1):
+                if y-i >= 0:
+                    now += dp[x-1][y-i]
+                    now %= mod
+            
+            dp[x][y] = now
+
+    ans = 0
+    for y in range(0, K+1):
+        ans += dp[N][y]
+        ans %= mod
+
+    print(ans)

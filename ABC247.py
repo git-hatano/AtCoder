@@ -109,6 +109,66 @@ def test4():
             del buf[0: c]
             sum_ball = 0
 
-if __name__=='__main__':
 
-    test4()
+def D_TLE():
+    Q = int(input())
+
+    query = []
+    for i in range(Q):
+        query.append(list(map(int, input().split())))
+
+    que = []
+    for i in range(Q):
+        t = query[i][0]
+
+        if t==1:
+            x = query[i][1]
+            c = query[i][2]
+
+            for j in range(c):
+                que.append(x)
+        
+        elif t==2:
+            c = query[i][1]
+            print(sum(que[:c]))
+            que = que[c:]
+
+
+def D():
+    from collections import deque
+
+    # input
+    Q = int(input())
+
+    # process
+    x_s = deque([])
+    c_s = deque([])
+    for i in range(Q):
+        query = list(map(int, input().split()))
+        t = query[0]
+
+        if t==1:
+            x = query[1]
+            c = query[2]
+            x_s.append(x)
+            c_s.append(c)
+            
+        elif t==2:
+            c = query[1]
+            res = 0
+
+            while c>0:
+                take = min(c, c_s[0])
+                res += x_s[0]*take
+
+                c -= take
+
+                if c_s[0]-take==0:
+                    c_s.popleft()
+                    x_s.popleft()
+                else:
+                    c_s[0] -= take
+
+            print(res)
+
+
