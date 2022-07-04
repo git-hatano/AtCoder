@@ -28,7 +28,7 @@ a = list(map(int, input().split()))
 ### 初期化
 ```
 # 2次元配列 n*m
-dp = [[0]*m for i in range(n)]
+arr = [[0]*m for i in range(n)]
 ```
 
 ### リストから先頭要素を削除したいとき
