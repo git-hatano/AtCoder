@@ -31,6 +31,7 @@ list.pop()は遅いので使わない
 ```
 from collections import deque
 x = deque([])
+x.append(n)
 x.popleft()
 ```
 
