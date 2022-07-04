@@ -5,9 +5,8 @@
 * Python3よりも、PyPy3の方が速い
 * numpyはできるだけ使わない
   * PyPyでは使えない
-  * スライシングに頼っているとTLEになりがち
 * 1秒で処理できる計算量は、10^8
-  * 何重ループして良いかの当たりつけができる 
+* TLEになってからが勝負
 
 ## 💡Tips
 
@@ -26,6 +25,12 @@ A, B = map(int, input().split())
 a = list(map(int, input().split()))
 ```
 
+### 初期化
+```
+# 2次元配列 n*m
+dp = [[0]*m for i in range(n)]
+```
+
 ### リストから先頭要素を削除したいとき
 list.pop()は遅いので使わない
 ```
@@ -34,4 +39,3 @@ x = deque([])
 x.append(n)
 x.popleft()
 ```
-
