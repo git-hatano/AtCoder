@@ -11,7 +11,7 @@
 ## 💡Tips
 
 ### 基本的な入力
-```
+```python
 # 文字列を受け取る場合
 S = input() 
 
@@ -26,15 +26,16 @@ a = list(map(int, input().split()))
 ```
 
 ### 初期化
-```
+```python
 # 2次元配列 n*m
 arr = [[0]*m for i in range(n)]
 ```
 
 ### リストから先頭要素を削除したいとき
 list.pop()は遅いので使わない
-```
+```python
 from collections import deque
+
 x = deque([])
 x.append(n)
 x.popleft()
