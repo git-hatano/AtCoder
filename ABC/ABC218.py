@@ -35,14 +35,7 @@ def B():
     print(s)
 
 
-def C():
-    n = int(input())
-    p = [x-1 for x in list(map(int, input().split()))]
-
-    q = [0]*n
-    for i in p:
-        q[p[i]] = i
-    print(" ".join([str(x+1) for x in q]))
+# def C():
 
 
 
