@@ -13,6 +13,7 @@ a = list(map(int, input().split()))
 
 # Yes/Noテンプレ
 ans = True
+ans = False
 print("Yes" if ans else "No")
 '''
 
