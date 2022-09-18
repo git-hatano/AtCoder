@@ -31,9 +31,68 @@ def test2():
     N = int(input())
     A = list(map(int, input().split()))
     
-    
+
+def C():
+    # 動的計画法
+    n, k = map(int, input().split())
+    a = list(map(int, input().split()))
+    b = list(map(int, input().split()))
+
+    dp = [False]*n
+    ep = [False]*n
+
+    dp[0] = True
+    ep[0] = True
+
+    for i in range(1, n):
+        if dp[i-1]:
+            if abs(a[i-1] - a[i])<=k:
+                dp[i] = True
+            if abs(a[i-1] - b[i])<=k:
+                ep[i] = True
+        
+        if ep[i-1]:
+            if abs(b[i-1] - a[i])<=k:
+                dp[i] = True
+            if abs(b[i-1] - b[i])<=k:
+                ep[i] = True
+
+    if dp[n-1] or ep[n-1]:
+        print("Yes")
+    else:
+        print("No")
 
 
-if __name__=='__main__':
+def C_TLE():
+    n = int(input())
+    xy = []
+    for i in range(n):
+        x, y = map(int, input().split())
+        xy.append([x, y])
 
-    test2()
+    s = input()
+    can = False
+
+    if s=="R"*n or s=="L"*n:
+        can = False
+
+    else:
+        for i in range(n):
+            for j in range(i+1, n):
+                if xy[i][1] == xy[j][1]:
+
+                    if xy[i][0] < xy[j][0] and s[i]=="R" and s[j]=="L":
+                        can = True
+                    if xy[i][0] > xy[j][0] and s[i]=="L" and s[j]=="R":
+                        can = True
+
+                    if can:
+                        break
+            if can:
+                break
+
+    if can:
+        print("Yes")
+    else:
+        print("No")
+        
