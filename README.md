@@ -50,9 +50,9 @@ a = [list(map(int, input().split())) for _ in range(h)]
 ### 配列の初期化
 ```python
 # 1次元配列 n
-arr = [0]*n
+arr = [0]*(n)
 # 2次元配列 n*m
-arr = [[0]*m for i in range(n)]
+arr = [[0]*(m) for i in range(n)]
 ```
 
 ### 文字列、リストの反転
