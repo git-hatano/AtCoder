@@ -173,3 +173,20 @@ a = [[1,1], [2,1], [0,0], [3,0]]
 """
 a = sorted(a, key=lambda x: (x[1], -x[0]), reverse=True)
 ```
+
+### リストの各要素の出現個数をカウントしたいとき
+辞書型でもできるけどこっちの方が楽そう
+```python
+# ABC210 C
+# 尺取法の実装に利用した例
+from collections import Counter
+counter = Counter(a[:k])
+
+for i in range(k, n):
+    left = c[i-k]
+    right = c[i]
+    counter[left] -= 1
+    counter[right] += 1
+    if counter[left]==0:
+        del counter[left]
+```
