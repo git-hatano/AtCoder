@@ -39,7 +39,27 @@ def B():
     print("Strong" if ans else "Weak")
 
 
-# def C():
+def C():
+    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
+    b = list(map(int, input().split()))
+
+    a = sorted(a)
+    b = sorted(b)
+
+    ans = float("inf")
+    i,j = 0,0
+    while i<n and j<m:
+        ans = min(ans, abs(a[i]-b[j]))
+        
+        if a[i]>b[j]:
+            j += 1
+        elif a[i]<b[j]:
+            i += 1
+        else:
+            break
+
+    print(ans)
 
 
 # def D():
