@@ -196,6 +196,6 @@ for i in range(k, n):
 開区間で与えられたら、閉区間に変換して当てはめる
 ```python
 # ABC207 C
-max(a,c) ≤ min(b,d)
+max(a,c) <= min(b,d)
 ```
 
