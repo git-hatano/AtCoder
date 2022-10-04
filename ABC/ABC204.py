@@ -40,8 +40,43 @@ def B():
     print(ans)
 
 
-# def C():
+"""
+dfs 
+グラフ理論全然分からん
+再起関数の書き方分からん
+どちらも今まで当たったことないから苦手なので、これから問題を通して慣れていく
+"""
+def C():
+    #再帰回数の上限を変更
+    import sys
+    sys.setrecursionlimit(10000)
 
+    n, m = map(int, input().split())
+    g = [[] for i in range(n)]
+    #g[i]は都市iから道路で直接つながっているリスト
+    for i in range(m):
+        a, b = map(int, input().split())
+        a -= 1
+        b -= 1
+        g[a].append(b)
+
+    def dfs(v):
+        if temp[v]:
+            #同じ頂点を2度調べないためのreturn
+            return 
+        temp[v] = True
+        for vv in g[v]:
+            dfs(vv)
+
+    ans = 0
+    #都市iからスタートする場合
+    for i in range(n):
+        #temp[j]は都市jに到達可能かを表す
+        temp = [False]*n
+        dfs(i)
+        ans += sum(temp)
+        
+    print(ans)
 
 
 # def D():
