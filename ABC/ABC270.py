@@ -61,8 +61,9 @@ def B():
 """
 深さ優先探索（DFS）
 DFSは木構造と相性が良い、らしい
+pypy3だとTLE, python3だと間に合ってAC
 """
-def C_TLE():
+def C():
     #再帰回数の上限を変更
     import sys
     sys.setrecursionlimit(1000000)
@@ -98,6 +99,50 @@ def C_TLE():
     ans = []
     dfs(y, -1)
     print(" ".join([str(a+1) for a in ans]))
+
+
+"""
+BFS(幅優先探索)でもDFS(深さ優先探索)でも解けるらしい
+https://qiita.com/MoroeTachibana-oh/items/a340ede2a70815e60ad8#1-4-c%E5%95%8F%E9%A1%8C-simple-path
+"""
+"""
+dfsのパターン
+xからyまでの道のりを探索した後、yからxに戻って道順を作る
+pypy3だとTLE, python3だと間に合ってAC
+"""
+def C_ans_dfs():
+    #再帰回数の上限を変更
+    import sys
+    sys.setrecursionlimit(10**9)
+
+    n, x, y = map(int, input().split())
+    x -= 1; y -= 1
+
+    g = [[] for _ in range(n)]
+    for i in range(n-1):
+        u, v = map(int, input().split())
+        u -= 1; v -= 1
+        g[u].append(v)
+        g[v].append(u)
+
+    rec = {}#nxt:now
+    def dfs(now, prev):
+        for nxt in g[now]:
+            if nxt==prev:
+                continue
+            #キーにnxtが存在しない時、値nowを格納
+            rec.setdefault(nxt, now)
+            dfs(nxt, now)
+        return
+
+    dfs(x, None)
+    ans = []
+    now = y
+    while now!=x:
+        ans.append(now+1)
+        now = rec[now]
+    ans.append(now+1)
+    print(*reversed(ans), sep=" ")
 
 
 """
