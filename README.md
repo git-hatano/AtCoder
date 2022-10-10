@@ -200,3 +200,10 @@ for i in range(k, n):
 max(a,c) <= min(b,d)
 ```
 
+### 2次元配列を時計回りに90deg回転
+引数に2次元のリストを渡す
+```python
+# ABC218 C
+def rot(s):
+    return list(zip(*s[::-1]))
+```
