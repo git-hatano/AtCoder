@@ -23,6 +23,9 @@ def A():
     print("Yes" if ans else "No")
 
 
+"""
+1つだけTLEが残る…
+"""
 def B_TLE():
     a, b, w = map(int, input().split())
     w *= 1000
