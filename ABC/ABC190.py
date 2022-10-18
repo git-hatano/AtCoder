@@ -47,6 +47,10 @@ def B():
 """
 ボールの置き方を全bit探索を使って全探索し、
 一番条件に合っている置き方を探す
+
+itertools.product(直積) と *(シーケンスのアンパック)
+を使うともっとスッキリ書ける
+https://atcoder.jp/contests/abc190/editorial/626
 """
 def C():
     #input
