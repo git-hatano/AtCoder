@@ -138,21 +138,30 @@ heapq.heappush(que, minima)
 ```
 
 ### 連想配列（辞書型）の初期化を省略する
-defaultdict を使うと、存在していないkeyが入ったとき、指定した値で初期化してくれる
+defaultdict を使うと存在していないkeyが入ったとき、指定した値で初期化してくれる
 ```python
 from collections import defaultdict
 d = defaultdict(int)#0で初期化
 d[key] += 1
 ```
 
-### リストの中から、xよりも値が大きな要素の個数を求める
-二分探索を使う
+### 二分探索
+リストの中から、xよりも値が大きな要素の個数を求める
 ```python
-a = sorted(a) #予めソートが必須
-
 from bisect import bisect_left
+a = sorted(a) #予めソートが必須
 less_than_x_count = bisect_left(a, x)
-print(len(a) - less_than_x_count)
+ans = len(a) - less_than_x_count
+```
+
+リストの中にlからrの数は何個あるか
+```python
+# ABC248 C
+from bisect import bisect_left, bisect_right
+a = sorted(a) #予めソートが必須
+st = bisect_left(a, l) #l以上の数が初めて現れる場所
+l = bisect_right(a, r) #rより大きい数が初めて現れる場所
+ans = gl - st
 ```
 
 ### 区間和に関する問題
