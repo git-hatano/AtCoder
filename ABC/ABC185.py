@@ -60,5 +60,62 @@ def C_ans():
     print(ans)
 
 
-# def D():
+def D():
+    n, m = map(int, input().split())
+    a = [x-1 for x in list(map(int, input().split()))]
+    a = sorted(a)
 
+    #全て白
+    if m == 0:
+        ans = 1
+    #全て青
+    elif n == m:
+        ans = 0
+    else:
+        #サイズ
+        if a[0]!=0:
+            k = a[0]
+        else:
+            k = 10**9
+        for i in range(1, m):
+            k = min(k, max(1, a[i]-a[i-1]-1))
+        if a[-1]!=(n-1):
+            k = min(k, max(1, n-a[-1]-1))
+            
+        #回数
+        ans = 0
+        for i in range(m):
+            if i==0:
+                whites = a[i]
+            else:
+                whites = a[i] - a[i-1] -1
+            ans += whites//k
+            if whites%k>0:
+                ans += 1
+                
+        whites = n -a[-1] -1
+        ans += whites//k
+        if whites%k>0:
+            ans += 1
+    print(ans)
+
+
+def D_ans():
+    n, m = map(int, input().split())
+    a = [x-1 for x in list(map(int, input().split()))]
+    a = sorted(a)
+    a.append(n) #最後に青を追加することで実装が楽になる
+
+    cur = 0
+    s = []
+    for i in range(m+1):
+        w = a[i] - cur
+        if w>0:
+            s.append(w)
+        cur = a[i]+1
+    k = min(s)
+
+    ans = 0
+    for w in s:
+        ans += (w+k-1)//k #切り上げの書き方
+    print(ans)
