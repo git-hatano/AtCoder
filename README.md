@@ -27,7 +27,8 @@
   * xで割った余りを格納してみる
 
 
-## 基本的な入力
+## 基本
+### 入力
 ```python
 # 文字列を受け取る場合
 s = input() 
@@ -46,13 +47,14 @@ h, w = map(int, input().split())
 a = [list(map(int, input().split())) for _ in range(h)]
 ```
 
-## 配列の初期化
+### 配列の初期化
 ```python
 # 1次元配列 n
 arr = [0]*(n)
 # 2次元配列 n*m
 arr = [[0]*(m) for i in range(n)]
 ```
+
 
 ## リスト、ソート関係
 ### 文字列、リストの反転
@@ -127,16 +129,22 @@ def rot(s):
     return list(zip(*s[::-1]))
 ```
 
+
 ## itertools
-### リストから任意のn個の組み合わせを取り出したいとき
+### リストから組み合わせ、順列を生成 ([参照元](https://note.nkmk.me/python-math-factorial-permutations-combinations/))
 全bit探索をしなくてもいい
 ```python
-# aから2つ選ぶ組み合わせを作る例
 a = range(10)
 n = 2
+# aから2つ選ぶ組み合わせを作る
 from itertools import combinations
 for c in combinations(a, n):
     print(c) 
+
+# aから2つ選ぶ順列を作る
+from itertools import permutations
+for p in permutations(a, n):
+    print(p) 
 ```
 
 ### 区間和に関する問題
@@ -146,6 +154,7 @@ for c in combinations(a, n):
 from itertools import accumulate
 s = [0] + list(accumulate(a))
 ```
+
 
 ## collections
 ### 連想配列（辞書型）の初期化を省略する
@@ -163,6 +172,7 @@ d[key] += 1
 from collections import Counter
 counter = Counter(a[:k])
 ```
+
 
 ## 二分探索
 ### リストの中から、xよりも値が大きな要素の個数を求める
@@ -183,14 +193,16 @@ l = bisect_right(a, r) #rより大きい数が初めて現れる場所
 ans = gl - st
 ```
 
-##  2つの閉区間 [a,b],[c,d] が共通部分を持つかの判定
+
+## other
+###  2つの閉区間 [a,b],[c,d] が共通部分を持つかの判定
 開区間で与えられたら、閉区間に変換して当てはめる
 ```python
 # ABC207 C
 max(a,c) <= min(b,d)
 ```
 
-## 10進数の数字を26進数（アルファベットに変換）
+### 10進数の数字を26進数（アルファベットに変換）
 再帰を使うことで進数変換ができる
 ```python
 # ABC171 C
@@ -210,7 +222,7 @@ def num2alpha(num, islower=True):
 ans = num2alpha(27) #aa
 ```
 
-## 対角線で分けて、上側（下側）三角だけ探索したいとき
+### 対角線で分けて、上側（下側）三角だけ探索したいとき
 ```python
 a = [
  ['-', 'W', 'W', 'W'],
@@ -225,4 +237,12 @@ for i in range(n):
     for j in range(i+1, n):
         if a[i][j] == a[j][i]:
             ans = False
+```
+
+### 組み合わせの総数を算出 ([参照元](https://note.nkmk.me/python-math-factorial-permutations-combinations/))
+nCr の結果を返す
+```python
+import math
+def combinations_count(n, r):
+    return math.factorial(n) // (math.factorial(n - r) * math.factorial(r))
 ```
