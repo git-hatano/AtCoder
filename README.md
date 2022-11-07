@@ -203,26 +203,6 @@ ans = gl - st
 max(a,c) <= min(b,d)
 ```
 
-### 10進数の数字を26進数（アルファベット）に変換
-再帰を使うことで進数変換ができる
-```python
-# ABC171 C
-def num2alpha(num, islower=True):
-    if islower:
-        ascii_start = 97 #a
-    else:
-        ascii_start = 64 #A
-
-    if num<=26:
-        return chr(ascii_start-1+num)
-    elif num%26==0:
-        return num2alpha(num//26-1)+chr(ascii_start+26-1)
-    else:
-        return num2alpha(num//26)+chr(ascii_start-1+num%26)
-
-ans = num2alpha(27) #aa
-```
-
 ### 対角線で分けて、上側（下側）三角だけ探索したいとき
 ```python
 a = [
@@ -246,4 +226,36 @@ nCr の結果を返す
 import math
 def combinations_count(n, r):
     return math.factorial(n) // (math.factorial(n - r) * math.factorial(r))
+```
+
+### 回転行列
+角度tは反時計回りが正
+```python
+#ABC168 C
+import numpy as np
+def rotation(u, t, deg=True):
+    if deg:
+        t = np.deg2rad(t)
+    R = np.array([[np.cos(t), -np.sin(t)], [np.sin(t),  np.cos(t)]])
+    return  np.dot(R, u)
+```
+
+### 10進数の数字を26進数（アルファベット）に変換
+再帰を使うことで進数変換ができる
+```python
+# ABC171 C
+def num2alpha(num, islower=True):
+    if islower:
+        ascii_start = 97 #a
+    else:
+        ascii_start = 64 #A
+
+    if num<=26:
+        return chr(ascii_start-1+num)
+    elif num%26==0:
+        return num2alpha(num//26-1)+chr(ascii_start+26-1)
+    else:
+        return num2alpha(num//26)+chr(ascii_start-1+num%26)
+
+ans = num2alpha(27) #aa
 ```
