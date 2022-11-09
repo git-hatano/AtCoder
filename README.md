@@ -190,7 +190,7 @@ ans = len(a) - less_than_x_count
 from bisect import bisect_left, bisect_right
 a = sorted(a) #予めソートが必須
 st = bisect_left(a, l) #l以上の数が初めて現れる場所
-l = bisect_right(a, r) #rより大きい数が初めて現れる場所
+gl = bisect_right(a, r) #rより大きい数が初めて現れる場所
 ans = gl - st
 ```
 
