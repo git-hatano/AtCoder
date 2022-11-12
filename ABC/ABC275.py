@@ -88,7 +88,7 @@ def C():
                 points.append([i, j])
     #4点を選び、その組み合わせが正方形になるかを判定
     ans = 0
-    if len(points) > 4:
+    if len(points) >= 4:
         for p in combinations(points, 4):
             if check(p):
                 ans += 1
