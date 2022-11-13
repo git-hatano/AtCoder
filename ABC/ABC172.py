@@ -34,9 +34,13 @@ def B():
             ans += 1
     print(ans)
 
-
+"""
+最小時間のものから読んでいけば良い？
+"""
 # def C():
-
+n, m, k = map(int, input().split())
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
 
 
 # def D():
