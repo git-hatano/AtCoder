@@ -23,12 +23,29 @@ def A():
     print("unsafe" if ans else "safe")
 
 
-# def B():
+def B():
+    a, b, c, d = map(int, input().split())
+
+    while True:
+        c -= b
+        if c <= 0:
+            ans = True
+            break
+        a -= d
+        if a <= 0:
+            ans = False
+            break
+    print("Yes" if ans else "No")
 
 
+def C():
+    n = int(input())
+    s = set()
+    for i in range(n):
+        s.add(input())
 
-# def C():
-
+    ans = len(list(s))
+    print(ans)
 
 
 # def D():

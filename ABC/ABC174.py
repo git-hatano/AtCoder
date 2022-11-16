@@ -99,6 +99,17 @@ def C_ans():
     print(ans)
 
 
+def D():
+    from collections import Counter
+    n = int(input())
+    c = list(input())
 
-# def D():
+    counter = Counter(c)
+    tmp_c = "R"*counter["R"] + "W"*counter["W"]
 
+    ans = 0
+    for i in range(n):
+        if c[i]!=tmp_c[i]:
+            ans += 1
+    ans //= 2
+    print(ans)
