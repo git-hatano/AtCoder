@@ -12,9 +12,11 @@ a, b = map(int, input().split())
 a = list(map(int, input().split()))
 
 # Yes/Noテンプレ
-ans = True
-ans = False
+ans = True #ans = False
 print("Yes" if ans else "No")
+
+# リストの中身を文字列に
+ans = " ".join([str(x) for x in a])
 '''
 
 # def A():
