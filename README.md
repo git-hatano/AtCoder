@@ -63,6 +63,12 @@ arr = [[0]*(m) for i in range(n)]
 rev_s = s[::-1]
 ```
 
+### リストの要素を文字列に変換
+空白区切りの例
+```python
+ans = " ".join([str(x) for x in a])
+```
+
 ### リストから末尾の要素を消したいとき
 listのスライシングで消すのは遅いので、delで対応
 ```python
