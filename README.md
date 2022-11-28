@@ -70,8 +70,9 @@ rev_s = s[::-1]
 ```
 
 ### リストの要素を文字列に変換
-空白区切りの例
+文字列の連結は遅いので、リストで保持して最後にまとめて連結する
 ```python
+#空白区切りの例
 ans = " ".join([str(x) for x in a])
 ```
 
@@ -83,12 +84,17 @@ buf = buf[:-3]#遅い
 del buf[-3:]#速い
 ```
 
-### リストから先頭要素を削除したいとき
-list.pop()は遅いので使わない
+### リストの先頭要素を操作したいとき
+deque を使う ([参照元](https://x1.inkenkun.com/archives/944))
 ```python
+# ABC158 D
 from collections import deque
 x = deque([])
-x.append(n)
+#先頭に追加: O(1)
+x.appendleft(a)
+#1番後ろに挿入: O(1)
+x.append(a)
+#先頭を削除: O(1)
 x.popleft()
 ```
 
@@ -98,8 +104,8 @@ x.popleft()
 import heapq
 que = [2, 1, 3]
 heapq.heapify(que)
-# pop
-minima = heapq.heappop(que) #最小値が取り出せる
+# pop 最小値が取り出せる
+minima = heapq.heappop(que)
 # push
 heapq.heappush(que, minima)
 ```
