@@ -53,5 +53,36 @@ def C():
     print(ans)
 
 
-# def D():
+def D():
+    from collections import deque
+    s = list(input())
+    s = deque(s)
+    flag_rev = False
 
+    q = int(input())
+    for i in range(q):
+        query = input()
+        t = int(query[0])
+        
+        if t==1:
+            flag_rev = not flag_rev
+        else:
+            query = query.split()
+            f = int(query[1])
+            c = query[2]
+            
+            if f==1:
+                if not flag_rev:
+                    s.appendleft(c)
+                else:
+                    s.append(c)
+            else:
+                if not flag_rev:
+                    s.append(c)
+                else:
+                    s.appendleft(c)
+    s = list(s)
+    if flag_rev:
+        s = s[::-1]
+    ans = "".join(s)
+    print(ans)
