@@ -31,13 +31,42 @@ def A():
     print(a, b)
 
 
-# def B():
+def B():
+    s = input()
+    ans = "x"*len(s)
+    print(ans)
 
 
+def C():
+    n = int(input())
+    a = list(map(int, input().split()))
+    ans = True
+    if n != len(set(a)):
+        ans = False
+    print("YES" if ans else "NO")
 
-# def C():
 
+def D():
+    from itertools import accumulate
+    n, k = map(int, input().split())
+    p = list(map(int, input().split()))
 
+    #期待値の計算に使う累積和
+    a = list(range(1, 1001))
+    s = [0] + list(accumulate(a))
 
-# def D():
+    #期待値
+    e = []
+    for i in range(n):
+        e.append(s[p[i]] / p[i])
+
+    #隣り合うk個の最大の期待値を探す. 2重ループにならないように差分を管理
+    tmp = sum(e[:k])
+    ans = tmp
+    for i in range(1, n-k+1):
+        tmp -= e[i-1] 
+        tmp += e[i+k-1]
+        ans = max(ans, tmp)
+
+    print(ans)
 
