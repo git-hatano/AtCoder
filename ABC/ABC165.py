@@ -57,5 +57,23 @@ def B_ans():
 
 
 
-# def D():
+def D_TLE():
+    a, b, n = map(int, input().split())
+    ans = 0
+    for x in range(n+1):
+        tmp = int(a*x/b) - a * int(x/b)
+        # print(x, ans, tmp)
+        ans = max(ans, tmp)
+    print(ans)
 
+
+def D():
+    a, b, n = map(int, input().split())
+    
+    if n >= b-1:
+        x = b-1
+    else:
+        x = n
+    
+    ans = int(a*x/b) - a * int(x/b)
+    print(ans)
