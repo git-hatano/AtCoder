@@ -32,10 +32,17 @@ def B():
     print(ans)
 
 
-# def C():
-n = int(input())
-p = list(map(int, input().split()))
-ans = 0
+def C():
+    n = int(input())
+    p = list(map(int, input().split()))
+    ans = 0
+    min_old = p[0]
+    for i in range(n):
+        if p[i] <= min_old:
+            ans += 1
+        min_old = min(min_old, p[i])
+
+    print(ans)
 
 
 
