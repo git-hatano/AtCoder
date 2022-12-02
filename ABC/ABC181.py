@@ -61,5 +61,75 @@ def C():
     print("Yes" if ans else "No")
 
 
-# def D():
+"""
+3桁以上の8の倍数は、下3桁が8で割り切れるという性質を利用
+for の範囲に抜けがあった
+"""
+def D():
+    from collections import Counter
+    s = input()
+    cnt_s = Counter(list(s))
 
+    ans = False
+    if len(s) == 1:
+        if int(s)%8==0:
+            ans = True
+    elif len(s) == 2:
+        if int(s[0]+s[1])%8==0:
+            ans = True
+        elif int(s[1]+s[0])%8==0:
+            ans = True
+    else:
+        for i in range(104, 1000, 8):
+            cnt_tmp = cnt_s.copy()
+            str_i = list(str(i))
+            flag = True
+            for x in str_i:
+                if x not in cnt_tmp:
+                    flag = False
+                    break
+                if cnt_tmp[x]==0:
+                    flag = False
+                    break
+                cnt_tmp[x] -= 1
+            
+            if flag:
+                ans = True
+                break
+
+    print("Yes" if ans else "No")
+
+
+def D_ans():
+    from collections import Counter
+    s = input()
+    cnt_s = Counter(list(s))
+
+    ans = False
+    if len(s) == 1:
+        if int(s)%8==0:
+            ans = True
+    elif len(s) == 2:
+        if int(s[0]+s[1])%8==0:
+            ans = True
+        elif int(s[1]+s[0])%8==0:
+            ans = True
+    else:
+        for i in range(0, 1000, 8):###
+            cnt_tmp = cnt_s.copy()
+            str_i = list(str(i).zfill(3))###
+            flag = True
+            for x in str_i:
+                if x not in cnt_tmp:
+                    flag = False
+                    break
+                if cnt_tmp[x]==0:
+                    flag = False
+                    break
+                cnt_tmp[x] -= 1
+            
+            if flag:
+                ans = True
+                break
+
+    print("Yes" if ans else "No")
