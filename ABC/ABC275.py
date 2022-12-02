@@ -96,5 +96,22 @@ def C():
     print(ans)
 
 
-# def D():
+def D():
+    #再帰回数の上限を変更
+    import sys
+    sys.setrecursionlimit(1000000)
 
+    #メモ化再帰
+    d = {}
+    def f(k):
+        if k==0:
+            return 1
+        if k in d:
+            return d[k]
+        x = f(k//2) + f(k//3)
+        d[k] = x
+        return x
+
+    n = int(input())
+    ans = f(n)
+    print(ans)

@@ -3,7 +3,6 @@
 
 ## memo
 * Python3よりも、PyPy3の方が速い
-  * 再帰関数の場合は、Python3の方が速そう
 * numpyはできるだけ使わない
   * PyPyでは使えない（行列演算は楽だからOK）
   * PandasはそもそもAtcoderでは使えない
@@ -215,6 +214,14 @@ ans = gl - st
 
 
 ## Tips
+### 再帰関数の上限を変更
+大きくしすぎるとエラーが出るので注意
+```python
+#再帰関数の場合は、Python3の方が速そう
+import sys
+sys.setrecursionlimit(10**6)
+```
+
 ### 最小公倍数([参照元](https://note.nkmk.me/python-gcd-lcm/))
 ```python
 import math
