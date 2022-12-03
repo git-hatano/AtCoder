@@ -227,3 +227,42 @@ def B09():
             if z[i][j] > 0:
                 ans += 1
     print(ans)
+
+
+def A10_TLE():
+    n = int(input())
+    a = list(map(int, input().split()))
+    d = int(input())
+
+    for i in range(d):
+        l, r = map(int, input().split())
+        l -= 1
+        r -= 1
+        ans = 0
+        for j in range(n):
+            if l<=j<=r:
+                continue
+            else:
+                ans = max(ans, a[j])
+        print(ans)
+
+
+def A10_ans():
+    n = int(input())
+    a = list(map(int, input().split()))
+    #l用の左から見た最大値
+    l_max = [0]
+    for i in range(n):
+        l_max.append(max(a[i], l_max[i]))
+
+    #r用の右から見た最大値
+    r_max = [0]
+    for i in range(n):
+        r_max.append(max(a[n-1-i], r_max[i]))
+    r_max = r_max[::-1]
+
+    d = int(input())
+    for i in range(d):
+        l, r = map(int, input().split())
+        ans = max(l_max[l-1], r_max[r])
+        print(ans)
