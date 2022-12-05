@@ -215,7 +215,7 @@ ans = gl - st
 
 ## Tips
 ### 全bit探索
-ex. 配列aにあるカードからいくつか選んだときの合計
+ex. 配列aからいくつか選んだときの合計
 ```python
 def bitsearch(a):
     res = []
