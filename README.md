@@ -214,6 +214,21 @@ ans = gl - st
 
 
 ## Tips
+### 全bit探索
+ex. 配列aにあるカードからいくつか選んだときの合計
+```python
+def bitsearch(a):
+    res = []
+    for i in range(2 ** len(a)):#bitのパターン
+        sum = 0 # 現在の合計値
+        for j in range(len(a)):
+            wari = (2 ** j)
+            if (i // wari) % 2 == 1:#bitが1の要素を抽出して計算
+                sum += a[j]
+        res.append(sum)
+    return res
+```
+
 ### 再帰関数の上限を変更
 大きくしすぎるとエラーが出るので注意
 ```python
