@@ -63,9 +63,16 @@ arr = [[0]*(m) for i in range(n)]
 
 
 ## リスト、ソート関係
-### 文字列、リストの反転
+### 文字列の反転
 ```python
 rev_s = s[::-1]
+```
+
+### リストの反転
+sort のように2パターンの書き方 ([参照元](https://note.nkmk.me/python-reverse-reversed/))
+```python
+a.reverse()
+rev_a = reversed(a)
 ```
 
 ### リストの要素を文字列に変換
@@ -109,8 +116,8 @@ minima = heapq.heappop(que)
 heapq.heappush(que, minima)
 ```
 
-### 値に優先順位をつけてキーをソートする方法 ([参照元](https://qiita.com/naritai_geek/items/495086bfb6dbce8a39ef))
-keyを上手く設定すれば色々と応用できるはず
+### 値に優先順位をつけてキーをソートする方法 
+keyを上手く設定すれば色々と応用できるはず ([参照元](https://qiita.com/naritai_geek/items/495086bfb6dbce8a39ef))
 ```python
 # ABC222 C
 # 1列目を降順にソートして、1列目が同じ値の場合、0列目は昇順にする例
@@ -130,9 +137,7 @@ a = sorted(a, key=lambda x: (x[1], -x[0]), reverse=True)
 x = [
  [1, 2, 5],
  [1, 3, 4],
- [1, 3, 5],
  [2, 3, 4],
- [2, 3, 5],
  [3, 4, 5],
 ]
 """
@@ -149,8 +154,8 @@ def rot(s):
 
 
 ## itertools
-### リストから組み合わせ、順列を生成 ([参照元](https://note.nkmk.me/python-math-factorial-permutations-combinations/))
-全bit探索をしなくてもいい
+### リストから組み合わせ、順列を生成 
+全bit探索をしなくてもいい ([参照元](https://note.nkmk.me/python-math-factorial-permutations-combinations/))
 ```python
 a = range(10)
 n = 2
@@ -214,20 +219,6 @@ ans = gl - st
 
 
 ## Tips
-### 全bit探索
-ex. 配列aからいくつか選んだときの合計
-```python
-def bitsearch(a):
-    res = []
-    for i in range(2 ** len(a)):#bitのパターン
-        sum = 0 # 現在の合計値
-        for j in range(len(a)):
-            wari = (2 ** j)
-            if (i // wari) % 2 == 1:#bitが1の要素を抽出して計算
-                sum += a[j]
-        res.append(sum)
-    return res
-```
 
 ### 再帰関数の上限を変更
 大きくしすぎるとエラーが出るので注意
@@ -237,7 +228,8 @@ import sys
 sys.setrecursionlimit(10**6)
 ```
 
-### 最小公倍数([参照元](https://note.nkmk.me/python-gcd-lcm/))
+### 最小公倍数
+([参照元](https://note.nkmk.me/python-gcd-lcm/))
 ```python
 import math
 def lcm(x, y):
@@ -257,8 +249,8 @@ def is_prime(n):
     return True
 ```
 
-### 素因数分解([参照元](https://qiita.com/snow67675476/items/e87ddb9285e27ea555f8))
-2以上の整数n => [[素因数, 指数], ...]の2次元リストを返す
+### 素因数分解
+2以上の整数n => [[素因数, 指数], ...]の2次元リストを返す ([参照元](https://qiita.com/snow67675476/items/e87ddb9285e27ea555f8))
 ```python
 def factorization(n):
     arr = []
@@ -277,6 +269,21 @@ def factorization(n):
     return arr
 ```
 
+### 組み合わせの総数を算出 
+nCr の結果を返す ([参照元](https://note.nkmk.me/python-math-factorial-permutations-combinations/))
+```python
+import math
+def combinations_count(n, r):
+    return math.factorial(n) // (math.factorial(n - r) * math.factorial(r))
+```
+
+### popcount
+二進数表記した時の1の個数
+```python
+def popcount(n):
+    return bin(n).count("1")
+```
+
 ###  2つの閉区間 [a,b],[c,d] が共通部分を持つかの判定
 開区間で与えられたら、閉区間に変換して当てはめる
 ```python
@@ -292,21 +299,12 @@ a = [
  ['L', 'D', '-', 'W'],
  ['L', 'D', 'W', '-']
 ]
-
 #例として、転置成分が同じ値かを確認する処理
 ans = True
 for i in range(n):
     for j in range(i+1, n):
         if a[i][j] == a[j][i]:
             ans = False
-```
-
-### 組み合わせの総数を算出 ([参照元](https://note.nkmk.me/python-math-factorial-permutations-combinations/))
-nCr の結果を返す
-```python
-import math
-def combinations_count(n, r):
-    return math.factorial(n) // (math.factorial(n - r) * math.factorial(r))
 ```
 
 ### 回転行列
