@@ -138,11 +138,117 @@ def A18(): #配るDP
     print("Yes" if dp[n][s] else "No")
 
 
-# def A18_ans(): #もらうDP
-n, s = map(int, input().split())
-a = list(map(int, input().split()))
+def A18_ans(): #もらうDP
+    n, s = map(int, input().split())
+    a = list(map(int, input().split()))
 
-dp = [[False]*(s+1) for i in range(n+1)]
-dp[0][0] = True
-for i in range(n):
-    for j in range(s+1):
+    dp = [[False]*(s+1) for i in range(n+1)]
+    dp[0][0] = True
+    for i in range(1, n+1):
+        for j in range(s+1):
+            if dp[i-1][j] == True:
+                dp[i][j] = True
+            if 0 <= j-a[i-1] < s+1 and dp[i-1][j-a[i-1]] == True:
+                dp[i][j] = True
+
+    print("Yes" if dp[n][s] else "No")
+
+
+def B18():
+    n, s = map(int, input().split())
+    a = list(map(int, input().split()))
+    #sになる組み合わせはあるか探索
+    dp = [[False]*(s+1) for i in range(n+1)]
+    dp[0][0] = True
+    #配るDP
+    for i in range(n):
+        for j in range(s+1):
+            if dp[i][j]==True:
+                dp[i+1][j] = True
+            if dp[i][j]==True and j+a[i] <= s:
+                dp[i+1][j+a[i]] = True
+
+    if dp[n][s] == False:
+        print(-1)
+    else:
+        #sになる組み合わせを復元
+        dp2 = [[False]*(s+1) for i in range(n+1)]
+        dp2[n][s] = True
+        ans = []
+        #配るDP
+        for i in reversed(range(n+1)):
+            for j in range(s+1):
+                if dp2[i][j]:
+                    if dp[i-1][j]:
+                        dp2[i-1][j] = True
+                    elif 0<=j-a[i-1] and dp[i-1][j-a[i-1]]:
+                        dp2[i-1][j-a[i-1]] = True
+                        ans.append(i)
+        #output
+        ans.reverse()
+        print(len(ans))
+        ans = " ".join([str(x) for x in ans])
+        print(ans)
+
+
+def B18_ans():
+    n, s = map(int, input().split())
+    a = list(map(int, input().split()))
+    #sになる組み合わせはあるか探索
+    dp = [[False]*(s+1) for i in range(n+1)]
+    dp[0][0] = True
+    #配るDP
+    for i in range(n):
+        for j in range(s+1):
+            if dp[i][j]==True:
+                dp[i+1][j] = True
+            if dp[i][j]==True and j+a[i] <= s:
+                dp[i+1][j+a[i]] = True
+
+    if dp[n][s] == False:
+        print(-1)
+    else:
+        #sになる組み合わせを復元
+        place = s
+        ans = []
+        #配るDP
+        for i in reversed(range(1, n+1)):
+            if dp[i-1][place] == True:#カードiを選ばない
+                place = place-0
+            else:
+                place = place - a[i-1]#カードiを選ぶ
+                ans.append(i)
+        #output
+        ans.reverse()
+        print(len(ans))
+        ans = " ".join([str(x) for x in ans])
+        print(ans)
+
+
+def A19():
+    n, w = map(int, input().split())
+    ws = []
+    vs = []
+    for i in range(n):
+        wi, vi = map(int, input().split())
+        ws.append(wi)
+        vs.append(vi)
+    """
+    dp[i][j]
+    ものiまでを選んだ重量がjで、その時の価値がdp[i][j]
+    """
+    dp = [[-1]*(w+1) for i in range(n+1)]
+    dp[0][0] = 0
+    #配るDP
+    for i in range(n):
+        for j in range(w+1):
+            if dp[i][j] >= 0:#ものiを選ばない
+                dp[i+1][j] = max(dp[i+1][j], dp[i][j])
+            
+            if j+ws[i]<=w and dp[i][j]>=0:#ものiを選ぶ
+                dp[i+1][j+ws[i]] = max(dp[i+1][j+ws[i]], dp[i][j]+vs[i])
+    #output
+    ans = 0
+    for j in range(w+1):
+        ans = max(ans, dp[n][j])
+    print(ans)
