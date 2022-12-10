@@ -329,44 +329,75 @@ def B20_ans():
     print(dp[n][m])
 
 
-# def A21_ans():
 """
 dp[l][r]
 lからr番目までのブロックが残っている状態を考える。
 この状態になるまでに最大で何点稼ぐことができるか
 """
-n = int(input())
-p = [0]*(n+1)
-a = [0]*(n+1)
-for i in range(1, n+1):
-    p[i], a[i] = map(int, input().split())
+def A21_ans():
+    n = int(input())
+    p = [0]*(n+1)
+    a = [0]*(n+1)
+    for i in range(1, n+1):
+        p[i], a[i] = map(int, input().split())
 
-dp = [[None]*(n+1) for i in range(n+1)]
-dp[1][n] = 0
-for LEN in reversed(range(0, n-1)):
-    for l in range(1, n-LEN+1):
-        r = l + LEN
-        
-        #score1の値（l-1番目のブロックを取り除く時の得点）を求める
-        score1 = 0
-        if l>=2 and l<=p[l-1] and p[l-1]<=r:
-            score1 = a[l-1]
-        
-        #score2の値（r+1番目のブロックを取り除く時の得点）を求める
-        score2 = 0
-        if r<=n-1 and l<=p[r+1] and p[r+1]<=r:
-            score2 = a[r+1]
-        
-        #dp[l][r]を求める
-        if l==1:
-            dp[l][r] = dp[l][r+1] + score2
-        elif r==n:
-            dp[l][r] = dp[l-1][r] + score1
+    dp = [[None]*(n+1) for i in range(n+1)]
+    dp[1][n] = 0
+    for LEN in reversed(range(0, n-1)):
+        for l in range(1, n-LEN+1):
+            r = l + LEN
+            
+            #score1の値（l-1番目のブロックを取り除く時の得点）を求める
+            score1 = 0
+            if l>=2 and l<=p[l-1] and p[l-1]<=r:
+                score1 = a[l-1]
+            
+            #score2の値（r+1番目のブロックを取り除く時の得点）を求める
+            score2 = 0
+            if r<=n-1 and l<=p[r+1] and p[r+1]<=r:
+                score2 = a[r+1]
+            
+            #dp[l][r]を求める
+            if l==1:
+                dp[l][r] = dp[l][r+1] + score2
+            elif r==n:
+                dp[l][r] = dp[l-1][r] + score1
+            else:
+                dp[l][r] = max(dp[l-1][r] + score1, dp[l][r+1] + score2)
+    #output
+    ans = 0
+    for i in range(1, n+1):
+        ans = max(ans, dp[i][i])
+    print(ans)
+
+
+"""
+dp[l][r]
+文字列sのl文字目からr文字目までの部分における最長回文の長さ
+"""
+def B21():
+    n = int(input())
+    s = input()
+
+    #DP 初期状態
+    dp = [[0]*(n) for i in range(n)]
+    for i in range(n):
+        dp[i][i] = 1
+    for i in range(n-1):
+        if s[i]==s[i+1]:
+            dp[i][i+1] = 2
         else:
-            dp[l][r] = max(dp[l-1][r] + score1, dp[l][r+1] + score2)
+            dp[i][i+1] = 1
 
-#output
-ans = 0
-for i in range(1, n+1):
-    ans = max(ans, dp[i][i])
-print(ans)
+    #DP 状態遷移
+    for LEN in range(2, n):
+        for l in range(n-LEN):
+            r = l+LEN
+            if s[l]==s[r]:
+                dp[l][r] = max(dp[l][r-1], dp[l+1][r], dp[l+1][r-1]+2)
+            else:
+                dp[l][r] = max(dp[l][r-1], dp[l+1][r])
+    print(dp[0][n-1])
+
+
+
