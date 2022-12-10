@@ -70,8 +70,11 @@ rev_s = s[::-1]
 
 ### 文字列の中が数字のみかを判定
 ```python
-"123".isdigit() #True
-"1a3".isdigit() #False
+"1".isdigit() #True
+"a".isdigit() #False
+
+"123".isdecimal() #True
+"1a3".isdecimal() #False
 ```
 
 ## リスト、ソート
