@@ -62,12 +62,19 @@ arr = [[0]*(m) for i in range(n)]
 ```
 
 
-## リスト、ソート関係
+## 文字列
 ### 文字列の反転
 ```python
 rev_s = s[::-1]
 ```
 
+### 文字列の中が数字のみかを判定
+```python
+"123".isdigit() #True
+"1a3".isdigit() #False
+```
+
+## リスト、ソート
 ### リストの反転
 sort のように2パターンの書き方 ([参照元](https://note.nkmk.me/python-reverse-reversed/))
 ```python
