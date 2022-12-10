@@ -268,6 +268,16 @@ def factorization(n):
         arr.append([n, 1])
     return arr
 ```
+1次元に変換
+```python
+def factorization_1d(n):
+    facts = factorization(n)
+    nums = []
+    for f in facts:
+        for i in range(f[1]):
+            nums.append(f[0])
+    return nums
+```
 
 ### 組み合わせの総数を算出 
 nCr の結果を返す ([参照元](https://note.nkmk.me/python-math-factorial-permutations-combinations/))
