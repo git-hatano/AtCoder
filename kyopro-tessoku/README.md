@@ -12,3 +12,6 @@ https://www.dropbox.com/sh/nx3tnilzqz7df8a/AABh1dWn9MpTS1XX_t3_2nHfa/tessoku-boo
 https://github.com/E869120/kyopro-tessoku
 
 
+## memo（1周目）
+* 二分探索の章は納得できていない箇所も多い
+* DPの章は全然理解できていない。復習が必要。

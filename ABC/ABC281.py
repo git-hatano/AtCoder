@@ -101,6 +101,10 @@ def D_TLE():
         print(max(sums))
 
 
-# n, k, d = map(int, input().split())
-# a = list(map(int, input().split()))
+"""
+dp
+"""
+# def D():
+n, k, d = map(int, input().split())
+a = list(map(int, input().split()))
 

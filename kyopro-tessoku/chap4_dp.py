@@ -400,4 +400,112 @@ def B21():
     print(dp[0][n-1])
 
 
+"""
+初期化は丁寧にやる
+"""
+def A22():
+    n = int(input())
+    a = list(map(int, input().split()))
+    b = list(map(int, input().split()))
 
+    #dp = [-1]*n #WA
+    dp = [-(10**9)]*n #AC
+    dp[0] = 0
+    #配るDP
+    for i in range(n-1):
+        #A
+        dp[a[i]-1] = max(dp[a[i]-1], dp[i]+100)
+        #B
+        dp[b[i]-1] = max(dp[b[i]-1], dp[i]+150)
+    print(dp[n-1])
+
+
+def A16_2():
+    n = int(input())
+    a = list(map(int, input().split()))
+    b = list(map(int, input().split()))
+    #配るDP
+    dp = [10**9]*(n+1)
+    dp[1] = 0
+    for i in range(1, n):
+        if i+1 <= n:
+            dp[i+1] = min(dp[i+1], dp[i]+a[i-1])
+        if i+2 <= n:
+            dp[i+2] = min(dp[i+2], dp[i]+b[i-1])
+    print(dp[n])
+
+
+"""
+ビットDP
+"""
+def A23():
+    n, m = map(int, input().split())
+    a = []
+    for i in range(m):
+        a.append(list(map(int, input().split())))
+
+    dp = [[10**9]*(2**n) for i in range(m+1)]
+    dp[0][0] = 0
+    for i in range(1, m+1):
+        for j in range(2**n):
+            #already[k]=1 の時、品物kは既に無料になっている
+            already = [None]*n
+            for k in range(n):
+                if (j // (2**k)) %2 == 0:
+                    already[k] = 0
+                else:
+                    already[k] = 1
+            #クーポン券iを選んだ時の整数表現vを計算
+            v = 0
+            for k in range(n):
+                if already[k]==1 or a[i-1][k]==1:
+                    v += 2**k
+            #遷移を使う
+            dp[i][j] = min(dp[i][j], dp[i-1][j])
+            dp[i][v] = min(dp[i][v], dp[i-1][j]+1)
+    #出力
+    if dp[m][2**n-1]==10**9:
+        print(-1)
+    else:
+        print(dp[m][2**n-1])
+
+
+def A24():
+    import bisect
+    n = int(input())
+    a = list(map(int, input().split()))
+
+    #DPの準備
+    LEN = 0 #LENはLの長さ
+    L = []
+    dp = [None]*n
+
+    for i in range(n):
+        pos = bisect.bisect_left(L, a[i])
+        dp[i] = pos
+        #配列Lを更新
+        if dp[i] >= LEN:
+            L.append(a[i])
+            LEN += 1
+        else:
+            L[dp[i]] = a[i]
+    print(LEN)
+
+
+def A25():
+    h, w = map(int, input().split())
+    c = []
+    for i in range(h):
+        c.append(list(input()))
+
+    dp = [[0]*(w) for i in range(h)]
+    dp[0][0] = 1
+    #もらうDP
+    for i in range(h):
+        for j in range(w):
+            if j>0 and c[i][j]==".":
+                dp[i][j] += dp[i][j-1]
+            if i>0  and c[i][j]==".":
+                dp[i][j] += dp[i-1][j]
+
+    print(dp[h-1][w-1])
