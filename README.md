@@ -239,7 +239,7 @@ sys.setrecursionlimit(10**6)
 ```
 
 ### 最小公倍数
-([参照元](https://note.nkmk.me/python-gcd-lcm/))
+gcd(x, y)は最大公約数を返す ([参照元](https://note.nkmk.me/python-gcd-lcm/))
 ```python
 import math
 def lcm(x, y):
