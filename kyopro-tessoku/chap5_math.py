@@ -152,7 +152,8 @@ def A29():#B29
     print(power(a, b, mod))
 
 
-def power(a, b, m):
+def A30():
+    def power(a, b, m):
         p = a
         ans = 1
         for i in range(30):#bの範囲で決まる
@@ -162,24 +163,24 @@ def power(a, b, m):
             p = (p*p)%m
         return ans
 
-def division(a, b, m):
-    return (a * power(b, m-2, m))%m
+    def division(a, b, m):
+        return (a * power(b, m-2, m))%m
 
-def combination(n, r, m):
-    #分子a
-    a = 1
-    for i in range(1, n+1):
-        a = (a*i)%m
-    #分母b
-    b = 1
-    for i in range(1, r+1):
-        b = (b*i)%m
-    for i in range(1, n-r+1):
-        b = (b*i)%m
-    return division(a, b, m)
+    def combination(n, r, m):
+        #分子a
+        a = 1
+        for i in range(1, n+1):
+            a = (a*i)%m
+        #分母b
+        b = 1
+        for i in range(1, r+1):
+            b = (b*i)%m
+        for i in range(1, n-r+1):
+            b = (b*i)%m
+        return division(a, b, m)
 
-n, r = map(int, input().split())
-mod = 10**9+7
-#答えnCrを求める
-print(combination(n, r, mod))
+    n, r = map(int, input().split())
+    mod = 10**9+7
+    #答えnCrを求める
+    print(combination(n, r, mod))
 
