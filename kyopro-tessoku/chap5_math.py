@@ -151,36 +151,144 @@ def A29():#B29
     mod = 10**9+7
     print(power(a, b, mod))
 
+def power(a, b, m):
+    p = a
+    ans = 1
+    for i in range(30):#bの範囲で決まる
+        wari = 2**i
+        if (b//wari)%2 == 1:
+            ans = (ans*p)%m 
+        p = (p*p)%m
+    return ans
+
+def division(a, b, m):
+    return (a * power(b, m-2, m))%m
+
+def combination(n, r, m):
+    #分子a
+    a = 1
+    for i in range(1, n+1):
+        a = (a*i)%m
+    #分母b
+    b = 1
+    for i in range(1, r+1):
+        b = (b*i)%m
+    for i in range(1, n-r+1):
+        b = (b*i)%m
+    return division(a, b, m)
+
 
 def A30():
-    def power(a, b, m):
-        p = a
-        ans = 1
-        for i in range(30):#bの範囲で決まる
-            wari = 2**i
-            if (b//wari)%2 == 1:
-                ans = (ans*p)%m 
-            p = (p*p)%m
-        return ans
-
-    def division(a, b, m):
-        return (a * power(b, m-2, m))%m
-
-    def combination(n, r, m):
-        #分子a
-        a = 1
-        for i in range(1, n+1):
-            a = (a*i)%m
-        #分母b
-        b = 1
-        for i in range(1, r+1):
-            b = (b*i)%m
-        for i in range(1, n-r+1):
-            b = (b*i)%m
-        return division(a, b, m)
-
     n, r = map(int, input().split())
     mod = 10**9+7
     #答えnCrを求める
     print(combination(n, r, mod))
 
+
+def B30():
+    h, w = map(int, input().split())
+    mod = 10**9+7
+    print(combination(h+w-2, h-1, mod))
+
+
+def A31():
+    n = int(input())
+    a = n//3
+    b = n//5
+    c = n//(3*5)
+    ans = a+b-c
+    print(ans)
+
+
+def B31():
+    n = int(input())
+
+    a = n//3
+    b = n//5
+    c = n//7
+
+    ab = n//15
+    bc = n//35
+    ca = n//21
+    abc = n//(3*5*7)
+
+    ans = a+b+c-ab-bc-ca+abc
+    print(ans)
+
+
+def A32():
+    n, a, b = map(int, input().split())
+    #dp[i]=Trueが勝ちの状態
+    dp = [None]*(n+1)
+
+    for i in range(n+1):
+        if i>=a and dp[i-a]==False:
+            dp[i] = True #勝ちの状態
+        elif i>=b and dp[i-b]==False:
+            dp[i] = True #負けの状態
+        else:
+            dp[i] = False
+
+    if dp[n]:
+        print("First")
+    else:
+        print("Second")
+
+
+def B32():
+    n, k = map(int, input().split())
+    a = list(map(int, input().split()))
+
+    dp = [None]*(n+1)
+    for i in range(n+1):
+        for j in range(k):
+            if i<a[j] and dp[i]==None:
+                dp[i] = False
+            elif i>=a[j] and dp[i-a[j]]==False:
+                dp[i] = True
+            elif i>=a[j] and dp[i]==None:
+                dp[i] = False
+
+    if dp[n]:
+        print("First")
+    else:
+        print("Second")
+
+
+"""
+ニム和
+"""
+def A33():
+    n = int(input())
+    a = list(map(int, input().split()))
+
+    xor_sum = a[0]
+    for i in range(1, n):
+        xor_sum ^= a[i]
+
+    if xor_sum != 0:#先手必勝
+        print("First")
+    elif xor_sum == 0:#後手必勝
+        print("Second")
+
+
+def B33():
+    n, h, w = map(int, input().split())
+    a = []
+    b = []
+    for i in range(n):
+        ai, bi = map(int, input().split())
+        a.append(ai)
+        b.append(bi)
+
+    xor_sum = 0
+    for i in range(n):
+        xor_sum ^= a[i]-1
+
+    for i in range(n):
+        xor_sum ^= b[i]-1
+
+    if xor_sum != 0:#先手必勝
+        print("First")
+    elif xor_sum == 0:#後手必勝
+        print("Second")
