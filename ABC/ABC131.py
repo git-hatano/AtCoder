@@ -17,12 +17,26 @@ ans = False
 print("Yes" if ans else "No")
 '''
 
-# def A():
+def A():
+    s = input() 
+    ans = True
+    for i in range(1, len(s)):
+        if s[i]==s[i-1]:
+            ans = False
+    print("Good" if ans else "Bad")
 
 
+def B():
+    n, l = map(int, input().split())
+    a = []
+    for i in range(1, n+1):
+        a.append([abs(l+i-1), l+i-1])
+    a.sort()
+    ans = 0
+    for i in range(1, n):
+        ans += a[i][1]
 
-# def B():
-
+    print(ans)
 
 
 def C_TLE():

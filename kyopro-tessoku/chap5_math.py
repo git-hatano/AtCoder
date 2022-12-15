@@ -292,3 +292,80 @@ def B33():
         print("First")
     elif xor_sum == 0:#後手必勝
         print("Second")
+
+
+def A34_ans():
+    n, x, y = map(int, input().split())
+    a = list(map(int, input().split()))
+    #Grundy数を求める
+    #grundy[i]: 石がi個のときのGrundy数
+    #transit[i]: Grundy数がiとなる遷移ができるか
+    grundy = [0]*100009
+    for i in range(10**5+1):
+        transit = [False, False, False]
+        if i>=x:
+            transit[grundy[i-x]] = True
+        if i>=y:
+            transit[grundy[i-y]] = True
+        
+        if transit[0]==False:
+            grundy[i] = 0
+        elif transit[1]==False:
+            grundy[i] = 1
+        else:
+            grundy[i] = 2
+    #output
+    xor_sum = 0
+    for i in range(n):
+        xor_sum ^= grundy[a[i]]
+    if xor_sum!=0:
+        print("First")
+    else:
+        print("Second")
+
+
+def B34_ans():
+    n, x, y = map(int, input().split())
+    a = list(map(int, input().split()))
+    #Grundy数を求める
+    #grundy[i]: 石がi個のときのGrundy数
+    #transit[i]: Grundy数がiとなる遷移ができるか
+    grundy = [0]*100009
+    for i in range(10**5+1):
+        transit = [False, False, False]
+        if i>=x:
+            transit[grundy[i-x]] = True
+        if i>=y:
+            transit[grundy[i-y]] = True
+        
+        if transit[0]==False:
+            grundy[i] = 0
+        elif transit[1]==False:
+            grundy[i] = 1
+        else:
+            grundy[i] = 2
+    #output
+    xor_sum = 0
+    for i in range(n):
+        xor_sum ^= grundy[a[i]%5]
+    if xor_sum!=0:
+        print("First")
+    else:
+        print("Second")
+
+
+def A35():
+    n = int(input())
+    a = list(map(int, input().split()))
+
+    dp = [[0]*(n+1) for i in range(n+1)]
+    for i in range(n):
+        dp[n][i] = a[i]
+
+    for i in reversed(range(n)):
+        for j in range(i):
+            if i%2==1:
+                dp[i][j] = max(dp[i+1][j], dp[i+1][j+1])
+            else:
+                dp[i][j] = min(dp[i+1][j], dp[i+1][j+1])
+    print(dp[1][0])
