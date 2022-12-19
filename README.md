@@ -203,7 +203,7 @@ d[key] += 1
 ```python
 # ABC210 C 尺取法の実装に利用した例
 from collections import Counter
-counter = Counter(a[:k])
+counter = Counter(a)
 ```
 
 

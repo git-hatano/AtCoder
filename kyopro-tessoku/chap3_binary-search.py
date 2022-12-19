@@ -257,6 +257,10 @@ def B14():
     print("Yes" if ans else "No")
 
 
+"""
+全bit探索
+20221220ではこれで書く
+"""
 def B14_ans():
     import bisect
     import sys

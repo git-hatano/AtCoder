@@ -198,3 +198,221 @@ def B39():
     print(ans)
 
 
+def A40():
+    from collections import Counter
+    import math
+    def combinations_count(n, r):
+        return math.factorial(n) // (math.factorial(n - r) * math.factorial(r))
+
+    n = int(input())
+    a = list(map(int, input().split()))
+    counter = Counter(a)
+    ans = 0
+    for key in counter:
+        if counter[key]>=3:
+            ans += combinations_count(counter[key], 3)
+    print(ans)
+
+
+def B40():
+    from collections import defaultdict
+    n = int(input())
+    a = list(map(int, input().split()))
+    cnt = defaultdict(int)
+
+    for i in range(n):
+        p = a[i]%100
+        cnt[p] += 1
+
+    ans = 0
+    for key in cnt:
+        x = 100 - key
+        if key<x and x in cnt:
+            ans += cnt[x]*cnt[key]
+
+    if 0 in cnt:
+        ans += cnt[0]*(cnt[0]-1)//2
+    if 50 in cnt:
+        ans += cnt[50]*(cnt[50]-1)//2
+    print(ans)
+
+
+def A41():
+    n = int(input())
+    s = input()
+    ans = False
+    for i in range(n-2):
+        if s[i:i+3]=="RRR" or s[i:i+3]=="BBB":
+            ans = True
+    print("Yes" if ans else "No")
+
+
+def B41():
+    x, y = map(int, input().split())
+    values = []
+    while not (x==1 and y==1):
+        values.append([x, y])
+        if x>y:
+            x -= y
+        elif y>x:
+            y -= x
+
+    k = len(values)
+    print(k)
+    for i in reversed(range(k)):
+        print(" ".join([str(v) for v in values[i]]))
+
+
+def A42():
+    n, k = map(int, input().split())
+    a = []
+    b = []
+    for i in range(n):
+        ai, bi = map(int, input().split())
+        a.append(ai)
+        b.append(bi)
+
+    ans = 0
+    for ai in range(1, 101):
+        for bi in range(1, 101):
+            cnt = 0
+            for i in range(n):
+                if ai<=a[i]<=ai+k and bi<=b[i]<=bi+k:
+                    cnt += 1
+            ans = max(ans, cnt)
+    print(ans)
+
+
+def B42_WA():
+    n = int(input())
+    a = []
+    b = []
+    for i in range(n):
+        x, y = map(int, input().split())
+        a.append(x)
+        b.append(y)
+    ans = 0
+    for i in range(2): #表 0:正 1:負
+        s1 = []
+        s2 = []
+        for j in range(n):
+            if i==0 and a[j]>0:
+                s1.append(a[j])
+                s2.append(b[j])
+            elif i==1 and a[j]<0:
+                s1.append(a[j])
+                s2.append(b[j])
+        ans = max(ans, abs(sum(s1))+abs(sum(s2)))
+        
+    for i in range(2): #裏 0:正 1:負
+        s1 = []
+        s2 = []
+        for j in range(n):
+            if i==0 and b[j]>0:
+                s1.append(a[j])
+                s2.append(b[j])
+            elif i==1 and b[j]<0:
+                s1.append(a[j])
+                s2.append(b[j])
+        ans = max(ans, abs(sum(s1))+abs(sum(s2)))
+    print(ans)
+
+
+# omote=1 のとき表の総和が正
+# ura=1 のとき裏の総和が正
+# omote=2 のとき表の総和が負
+# ura=2 のとき裏の総和が負
+def B42_ans():
+    def solve(omote, ura, a, b):
+        s = 0
+        for i in range(n):
+            card1 = a[i]
+            if omote==2:
+                card1 = -a[i]
+            card2 = b[i]
+            if ura==2:
+                card2 = -b[i]
+            #カードiは選ぶべきか
+            if card1 + card2 >= 0:
+                s += (card1 + card2)
+        return s
+
+    n = int(input())
+    a = [None]*n
+    b = [None]*n
+    for i in range(n):
+        a[i], b[i] = map(int, input().split())
+
+    ans1 = solve(1, 1, a, b)
+    ans2 = solve(1, 2, a, b)
+    ans3 = solve(2, 1, a, b)
+    ans4 = solve(2, 2, a, b)
+    print(max(ans1, ans2, ans3, ans4))
+
+
+def A43():
+    n, l = map(int, input().split())
+    a = [None]*n
+    b = [None]*n
+    for i in range(n):
+        a[i], b[i] = input().split()
+        a[i] = int(a[i])
+
+    ans = 0
+    for i in range(n):
+        if b[i]=="E":
+            ans = max(ans, l-a[i])
+        else:
+            ans = max(ans, a[i])
+    print(ans)
+
+
+def B43():
+    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
+    miss = [0]*n
+    for i in range(m):
+        miss[a[i]-1] += 1
+
+    for i in range(n):
+        print(m - miss[i])
+
+
+def A44():
+    n, q = map(int, input().split())
+    a = list(range(1, n+1))
+    reverse = False
+    for i in range(q):
+        query = list(map(int, input().split()))
+        if query[0]==1:
+            x = query[1]
+            y = query[2]
+            if not reverse:
+                a[x-1] = y
+            else:
+                a[-x] = y
+        elif query[0]==2:
+            reverse = not reverse
+        else:
+            x = query[1]
+            if not reverse:
+                print(a[x-1])
+            else:
+                print(a[-x])
+
+
+def B44():
+    n = int(input())
+    a = [list(map(int, input().split())) for _ in range(n)]
+    r = list(range(n))
+
+    q = int(input())
+    for i in range(q):
+        t, x, y = map(int, input().split())
+        x -= 1
+        y -= 1
+        if t==1:
+            r[x], r[y] = r[y], r[x]
+        else:
+            print(a[r[x]][y])
+
