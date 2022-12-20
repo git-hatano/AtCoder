@@ -118,7 +118,7 @@ x.popleft()
 優先度付きキューを使う
 ```python
 import heapq
-que = [2, 1, 3]
+que = []
 heapq.heapify(que)
 # pop 最小値が取り出せる
 minima = heapq.heappop(que)

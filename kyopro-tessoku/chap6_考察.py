@@ -416,3 +416,25 @@ def B44():
         else:
             print(a[r[x]][y])
 
+
+def A45():
+    n, c = input().split()
+    n = int(n)
+    a = input()
+    score = 0
+    color = {"W":0, "B":1, "R":2}
+    for i in range(n):
+        score += color[a[i]]
+
+    if score%3 == color[c]:
+        print("Yes")
+    else:
+        print("No")
+
+
+def B45():
+    a, b, c = map(int, input().split())
+    if a+b+c==0:
+        print("Yes")
+    else:
+        print("No")
