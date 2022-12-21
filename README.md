@@ -238,6 +238,11 @@ import sys
 sys.setrecursionlimit(10**6)
 ```
 
+### 整数iの各桁の和を求める
+```python
+s = sum(map(int, str(i)))
+```
+
 ### 最小公倍数
 gcd(x, y)は最大公約数を返す ([参照元](https://note.nkmk.me/python-gcd-lcm/))
 ```python

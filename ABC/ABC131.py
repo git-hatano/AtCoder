@@ -71,5 +71,22 @@ def C():
     print(ans)
 
 
-# def D():
+"""
+締め切り時間内で最短で終わる仕事から片付ければ良い
+"""
+def D():
+    n = int(input())
+    t = []
+    for i in range(n):
+        a, b = map(int, input().split())
+        t.append([b, a])
 
+    t.sort()
+    cur = 0
+    ans = True
+    for i in range(n):
+        if t[i][0] >= cur+t[i][1]:
+            cur += t[i][1]
+        else:
+            ans = False
+    print("Yes" if ans else "No")

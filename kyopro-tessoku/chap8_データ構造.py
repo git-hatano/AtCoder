@@ -197,5 +197,50 @@ def B56():
         print("Yes" if h1==h2 else "No")
 
 
+def A57():
+    n, q = map(int, input().split())
+    a = list(map(int, input().split()))
+    """
+    dp[i][j]: 2**i日後に穴jにいる
+    """
+    dp = [[0]*(n) for i in range(30)]
+    for i in range(30):
+        for j in range(n):
+            if i==0:
+                #穴jを0始まりに
+                dp[i][j] = a[j]-1
+            else:
+                dp[i][j] = dp[i-1][dp[i-1][j]]
+
+    for k in range(q):
+        x, y = map(int, input().split())
+        cur = x-1
+        for d in reversed(range(30)):
+            # if (y//2**d)%2 != 0: #Y の 2^d の位を取り出す
+            if (y>>d)&1 == 1: #高速にY の 2^d の位を取り出す: yをd[bit]右にシフトして1と&を取るとできる
+                cur = dp[d][cur]
+        print(cur+1)
+
+
+def B57():
+    n, k = map(int, input().split())
+    """
+    dp[i][j]: 2**i回後にjになる
+    """
+    dp = [[None]*(n+1) for i in range(30)]
+    for i in range(n+1):
+        s = sum([int(x) for x in list(str(i))])
+        dp[0][i] = i-s
+    for d in range(1, 30):
+        for i in range(n+1):
+            dp[d][i] = dp[d-1][dp[d-1][i]]
+
+    for i in range(1, n+1):
+        curnum = i
+        for d in reversed(range(30)):
+            if (k>>d)&1 == 1:
+                curnum = dp[d][curnum]
+        print(curnum)
+
 
 
