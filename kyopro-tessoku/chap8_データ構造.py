@@ -243,4 +243,53 @@ def B57():
         print(curnum)
 
 
+class segtree:
+    #要素datの初期化を行う
+    def __init__(self, n):
+        self.size = 1
+        while self.size < n:
+            self.size *= 2
+        self.dat = [0]*(self.size*2)
+    
+    #クエリ1に対する処理
+    def update(self, pos, x):
+        pos += self.size #posは0-indexedなので、A[pos]のみに対応するセル番号はpos+size
+        self.dat[pos] = x
+        while pos>=2:
+            pos //= 2
+            # self.dat[pos] = max(self.dat[pos*2], self.dat[pos*2+1])
+            self.dat[pos] = self.dat[pos*2] + self.dat[pos*2+1]
+    
+    #クエリ2に対する処理
+    """
+    u: 現在のセル番号
+    [a, b): セルに対する半開区間
+    [l, r): 求めたい半開区間
+    """
+    def query(self, l, r, a, b, u):
+        if r<=a or b<=l:#一切含まれない場合
+            return 0
+        if l<=a and b<=r:#完全に含まれる場合
+            return self.dat[u]
+        m = (a+b)//2
+        answerl = self.query(l, r, a, m, u*2)
+        answerr = self.query(l, r, m, b, u*2+1)
+        # return max(answerl, answerr)
+        return answerl +  answerr
+
+def A58_ans():
+    n, q = map(int, input().split())
+    queries = [ list(map(int, input().split())) for i in range(q) ]
+    Z = segtree(n)
+    for q in queries:
+        tp, *cont = q
+        if tp==1:
+            pos, x = cont
+            Z.update(pos-1, x)
+        if tp==2:
+            l, r = cont
+            answer = Z.query(l-1, r-1, 0, Z.size, 1)
+            print(answer)
+
+
 
