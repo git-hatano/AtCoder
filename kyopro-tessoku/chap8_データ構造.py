@@ -292,4 +292,71 @@ def A58_ans():
             print(answer)
 
 
+#RSQ segtreeクラスを使った版
+def B59_ans():
+    n = int(input())
+    a = list(map(int, input().split()))
+    Z = segtree(n)
+    ans = 0
+    for i in range(n):
+        ans += Z.query(a[i], n, 0, Z.size, 1)
+        Z.update(a[i]-1, 1)
+    print(ans)
 
+
+def B59_ans_py():
+    size = 1<<18 #2**18
+    dat = [0]*(size*2)
+    #代入 seg[i]=v
+    def update(i:int, v:int) -> None:
+        i += size #datのサイズがバカでかいからこの書き方ができる
+        dat[i] = v
+        while i>1:
+            i >>= 1 #i//=2
+            dat[i] = dat[i*2] + dat[i*2+1]
+    #sum(seg[l], seg[l+1], ..., seg[r-1])を求める
+    def query(l:int, r:int) -> int:
+        l += size
+        r += size
+        ans = 0
+        while l<r:
+            if l&1:
+                ans += dat[l]
+                l += 1
+            if r&1:
+                r -= 1
+                ans += dat[r]
+            l >>= 1 #l//=2
+            r >>= 1 #r//=2
+        return ans
+
+    n = int(input())
+    a = list(map(int, input().split()))
+    ans = 0
+    for i in range(n):
+        ans += query(a[i]+1, size)
+        update(a[i], 1)
+    print(ans)
+
+
+def A60():
+    from collections import deque
+    n = int(input())
+    a = list(map(int, input().split()))
+    stack = deque([])
+    day = [-1]
+    for i in range(n):
+        if i>0:
+            while len(stack)>0:
+                if stack[-1][1] < a[i]:
+                    stack.pop()
+                else:
+                    break
+            if len(stack)>0:
+                day.append(stack[-1][0])
+            else:
+                day.append(-1)
+        stack.append([i+1, a[i]])
+
+    ans = " ".join([str(x) for x in day])
+    print(ans)
