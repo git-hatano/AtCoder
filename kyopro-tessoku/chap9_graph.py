@@ -480,4 +480,159 @@ def B67():
     print(ans)
 
 
+"""start-------------------------------maxflow------------------------------------------"""
+#最大フロー用の構造体
+class maxflow_edge:
+    def __init__(self, to, cap, rev):
+        self.to = to
+        self.cap = cap
+        self.rev = rev
+
+"""
+深さ優先探索
+Fはスタートからposに到達する過程での残余グラフの辺の容量の最小値
+帰り値は流したフローの量
+"""
+def dfs(pos, goal, F, G, used):
+    #ゴールに到着: フローを流せる
+    if pos == goal: 
+        return F
+    #探索
+    used[pos] = True
+    for e in G[pos]:
+        #容量が1以上でかつ、まだ訪問していない頂点のみに行く
+        if e.cap > 0 and not used[e.to]:
+            flow = dfs(e.to, goal, min(F, e.cap), G, used)
+            #フローを流せる場合、残余グラフの容量をflowだけ増減
+            if flow>=1:
+                e.cap -= flow
+                G[e.to][e.rev].cap += flow
+                return flow
+    #全ての辺を探索しても見つからない場合
+    return 0
+
+
+"""
+頂点sから頂点tまでの最大フローの総流量を返す
+N: 頂点数
+edges: 辺のリスト
+"""
+def maxflow(N, s, t, edges):
+    #初期状態の残余グラフを構築
+    G = [list() for i in range(N+1)]
+    for a, b, c in edges:
+        G[a].append(maxflow_edge(b, c, len(G[b])))
+        G[b].append(maxflow_edge(a, 0, len(G[a])-1))
+    
+    INF = 10**10
+    total_flow = 0
+    while True:
+        used = [False]*(N+1)
+        F = dfs(s, t, INF, G, used)
+        if F > 0:
+            total_flow += F
+        else:
+            break #フローを流せなくなったら終了
+    return total_flow
+
+"""------------------------------------maxflow---------------------------------------end"""
+
+
+#二部マッチング問題
+def A69():
+    n = int(input())
+    c = [input() for i in range(n)]
+
+    #最大フローを求めたいグラフを構築する
+    #辺の要素は、(辺の始点番号, 辺の終点番号, 辺の容量) のタプル
+    edges = []
+    for i in range(n):
+        for j in range(n):
+            if c[i][j]=="#":
+                edges.append((i+1, n+j+1, 1)) #i番目の青色頂点とj番目の赤色頂点をつなぐ
+
+    for i in range(n):
+        edges.append((2*n+1, i+1, 1)) #s→青色の辺
+        edges.append((n+i+1, 2*n+2, 1)) #赤色→tの辺
+
+    ans = maxflow(2*n+2, 2*n+1, 2*n+2, edges)
+    print(ans)
+
+
+"""
+コードを書く前に適切なフローを書けたら上手くいけそう
+"""
+def B69():
+    n, m = map(int, input().split())
+    c = [input() for i in range(n)]
+    lim_time = 10#一人当たりの最大勤務時間
+    #edge[i]: (start, goal, cost)
+    edges = []
+    for i in range(n):
+        for j in range(24):
+            if c[i][j]=="1":
+                edges.append((i+1, n+j+1, 1)) #青と赤をつなぐ
+
+    for i in range(n):
+        edges.append((n+25, i+1, lim_time)) #s→青色の辺
+    for j in range(24):
+        edges.append((n+j+1, n+26, m)) #赤色→tの辺
+
+    ans = maxflow(n+26, n+25, n+26, edges)
+    if ans == 24*m:
+        print("Yes")
+    else:
+        print("No")
+
+
+def A70():
+    #頂点posから、ランプx,y,zの状態を反転させた時の頂点番号を返す関数
+    def get_next(pos, x, y, z):
+        #posの2進法表記を使って、頂点posが表すランプの状態 stateを計算
+        state = [ (pos // (2**i)) %2 for i in range(n) ]
+        #ランプx,y,zを反転
+        state[x] = 1 - state[x]
+        state[y] = 1 - state[y]
+        state[z] = 1 - state[z]
+        
+        #ランプの状態stateを示す頂点の番号を計算
+        ret = 0
+        for i in range(n):
+            if state[i]==1:
+                ret += 2**i
+        return ret
+
+    from collections import deque
+    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
+    actions = [list(map(lambda x: int(x)-1, input().split())) for i in range(m)]
+
+    #グラフに辺を追加
+    G = [list() for i in range(2**n)]
+    for i in range(2**n):
+        for x, y, z in actions:
+            nextstage = get_next(i, x, y, z)
+            G[i].append(nextstage)
+
+    #スタート地点、ゴール地点の頂点番号を決める
+    start = 0
+    for i in range(n):
+        if a[i]==1:
+            start += 2**i
+    goal = 2**n -1
+
+    #幅優先探索の初期化
+    dist = [-1]*(2**n)
+    dist[start] = 0
+    q = deque()
+    q.append(start)
+
+    #幅優先探索
+    while len(q)>=1:
+        pos = q.popleft()
+        for nex in G[pos]:
+            if dist[nex]==-1:
+                dist[nex] = dist[pos]+1
+                q.append(nex)
+    print(dist[goal])
 

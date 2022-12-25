@@ -6,12 +6,10 @@ https://qiita.com/u2dayo/items/ab391f099b706f651599#d%E5%95%8F%E9%A1%8Cneighbors
 [使用例]
 ABC231 D
 """
-
 from typing import List
 
 class UnionFind:
     """0-indexed"""
-
     def __init__(self, n):
         self.n = n
         self.parent = [-1] * n
@@ -32,7 +30,6 @@ class UnionFind:
 
         self.parent[x] += self.parent[y]
         self.parent[y] = x
-
         return True
 
     def is_same(self, x, y) -> bool:
@@ -52,8 +49,7 @@ class UnionFind:
         return -self.parent[self.root(x)]
 
     def all_sizes(self) -> List[int]:
-        """全連結成分のサイズのリストを取得 O(N)
-        """
+        """全連結成分のサイズのリストを取得 O(N)"""
         sizes = []
         for i in range(self.n):
             size = self.parent[i]
@@ -75,5 +71,37 @@ class UnionFind:
     def group_count(self) -> int:
         """連結成分の数を取得 O(1)"""
         return self.__group_count
+
+
+"""
+鉄則本9章
+"""
+class UnionFind_simple:
+    def __init__(self, n) -> None:
+        self.par = [-1]*n #最初は親がない
+        self.siz = [1]*n #最初はグループの頂点数が1
     
+    #頂点xの親を返す関数
+    def root(self, x):
+        while True:
+            if self.par[x]==-1: #1個先(親)がなければここが親
+                break
+            x = self.par[x] #1個先(親)に進む
+        return x
     
+    #要素uと要素vを統合する関数
+    def unite(self, u, v):
+        root_u = self.root(u)
+        root_v = self.root(v)
+        if root_u==root_v: #uとvが同じグループなら何もしない
+            return
+        if self.siz[root_u] < self.siz[root_v]:
+            self.par[root_u] = root_v
+            self.siz[root_v] += self.siz[root_u]
+        else:
+            self.par[root_v] = root_u
+            self.siz[root_u] += self.siz[root_v]
+    
+    #uとvが同じグループかを返す関数
+    def same(self, u, v):
+        return self.root(u)==self.root(v)
