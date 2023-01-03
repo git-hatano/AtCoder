@@ -303,6 +303,10 @@ import math
 def combinations_count(n, r):
     return math.factorial(n) // (math.factorial(n - r) * math.factorial(r))
 ```
+nPr の結果を返す ([参照元](https://note.nkmk.me/python-math-factorial-permutations-combinations/))
+```python
+x = math.perm(n, r)
+```
 
 ### popcount
 二進数表記した時の1の個数

@@ -126,5 +126,115 @@ def A72_ans():
     print(ans)
 
 
-# def D():
+def A73_ans():
+    from collections import defaultdict
+    import heapq
+    n, m = map(int, input().split())
+    paths = [list(map(int, input().split())) for _ in range(m)]
+    g = defaultdict(list)
 
+    for i in range(m):
+        a, b, c, d = paths[i]
+        a -= 1
+        b -= 1
+        g[a].append([b, 10000*c-d])
+        g[b].append([a, 10000*c-d])
+
+    #重み付き最短経路問題ならダイクストラ法
+    kakutei = [False]*n #kakutei[i]: 頂点iの最短経路が確定したか
+    cur = [10**10]*n
+    #最短距離を更新
+    cur[0] = 0
+    que = []
+    heapq.heapify(que)
+    heapq.heappush(que, [cur[0], 0])
+
+    while len(que)>0:
+        #次に確定させる頂点を決める
+        pos = heapq.heappop(que)[1]
+        #既にposへの最短経路が確定していれば何もしない
+        if kakutei[pos]:
+            continue
+        #cur[i]の更新
+        kakutei[pos] = True
+        for nex, cost in g[pos]:
+            if cur[nex] > cur[pos]+cost:
+                cur[nex] = cur[pos]+cost
+                heapq.heappush(que, [cur[nex], nex])
+
+    #距離: cur[n-1]//10000 の小数点以下を切り上げた値
+    distance = (cur[n-1]+9999)//10000
+    trees = distance*10000 - cur[n-1]
+    print(f"{distance} {trees}")
+
+
+def A74():
+    n = int(input())
+    p = [list(map(int, input().split())) for _ in range(n)]
+    x = [0]*n
+    y = [0]*n
+    for i in range(n):
+        for j in range(n):
+            if p[i][j]!=0:
+                x[i] = p[i][j]
+                y[j] = p[i][j]
+    #操作回数をバブルソートで数える
+    inv_x = 0
+    inv_y = 0
+    for i in range(n):
+        for j in range(i+1, n):
+            if x[i]>x[j]:
+                x[i], x[j] = x[j], x[i]
+                inv_x += 1
+            if y[i]>y[j]:
+                y[i], y[j] = y[j], y[i]
+                inv_y += 1
+    ans = inv_x + inv_y
+    print(ans)
+
+
+def A75():
+    n = int(input())
+    a = [list(map(int, input().split())) for _ in range(n)]
+    a = sorted(a, key=lambda x: x[1])
+    """
+    dp[i][j]:
+    手順iが終了した時点の現在時刻がjであるとき、既に何問解答できているか
+    """
+    max_d = max(map(lambda p: p[1], a))#1440
+    dp = [[-1]*(max_d+1) for i in range(n+1)]
+    dp[0][0] = 0
+    for i in range(n):
+        t, d = a[i]
+        for j in range(max_d+1):
+            if j>d or j<t:
+                dp[i+1][j] = dp[i][j]
+            else:
+                dp[i+1][j] = max(dp[i][j], dp[i][j-t]+1)
+    ans = max(dp[n])
+    print(ans)
+
+
+def A76():
+    import bisect
+    n, w, l, r = map(int, input().split())
+    x = list(map(int, input().split()))
+    mod = 10**9 +7
+
+    #西岸を足場0、東岸を足場n+1とみなす
+    x = [0] + x + [w]
+    #dp
+    dp = [0]*(n+2)
+    dpsum = [0]*(n+2)
+    dp[0] = 1
+    dpsum[0] = 1
+    for i in range(1, n+2):
+        posl = bisect.bisect_left(x, x[i]-r)
+        posr = bisect.bisect_left(x, x[i]-l+1)-1
+        #dp[i]の値を累積和で計算
+        dp[i] = (dpsum[posr] if posr>=0 else 0) - (dpsum[posl-1] if posl>=1 else 0)
+        dp[i] %= mod
+        #累積和dpsum[i]の値を更新
+        dpsum[i] = dpsum[i-1] + dp[i]
+        dpsum[i] %= mod
+    print(dp[n+1])

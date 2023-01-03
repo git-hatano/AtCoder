@@ -50,5 +50,63 @@ def C():
     print("Yes" if ans else "No")
 
 
-# def D():
+"""
+2重ループの時点でTLEだが、同じパターンが現れるのを確認することまではできた
+10*100後にどのパターンが来ているのかがわからない
+"""
+def D_WA_TLE():
+    s = list(input())
+    n = len(s)
 
+    a = [[0]*(n) for i in range(n)]
+    for i in range(n):
+        a[0][i] = 1
+
+    p = dict()
+    row = " ".join([str(x) for x in a[0]])
+    p[row] = 0
+    for i in range(n-1):
+        for j in range(n):
+            if s[j]=="R":
+                a[i+1][j+1] += a[i][j]
+            else:
+                a[i+1][j-1] += a[i][j]
+        
+        row = " ".join([str(x) for x in a[i+1]])
+        if row in set(p.keys()):
+            before = p[row]
+            cur = i+1
+            break
+        else:
+            p[row] = i+1
+
+    idx = 10**100 % (cur-before) + before
+    ans = " ".join([str(x) for x in a[idx]])
+    print(ans)
+
+
+"""
+ダブリング
+dp[p][i]
+i番目のマスから2**p回移動した先のマス
+"""
+def D_ans():
+    s = list(input())
+    n = len(s)
+
+    dp = [[0]*(n) for i in range(33)]
+    #2**0 = 1回目の移動先を格納
+    for i in range(n):
+        if s[i]=="R":
+            dp[0][i] = i+1 #移動先を格納
+        else:
+            dp[0][i] = i-1
+    #2**p回目の移動先を格納
+    for p in range(32):
+        for i in range(n):
+            dp[p+1][i] = dp[p][dp[p][i]]
+    #i番目のマスにいる人を2**p回移動させる
+    ans = [0]*n
+    for i in range(n):
+        ans[dp[32][i]] += 1
+    print(" ".join([str(x) for x in ans]))
