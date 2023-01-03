@@ -238,3 +238,30 @@ def A76():
         dpsum[i] = dpsum[i-1] + dp[i]
         dpsum[i] %= mod
     print(dp[n+1])
+
+
+def A77():
+    n, l = map(int, input().split())
+    k = int(input())
+    a = list(map(int, input().split()))
+
+    #スコアの最大値がx以上かを判定する関数
+    def check(x):
+        cnt = 0 #現時点で何回切ったか
+        last_kireme = 0 #最後どこで切ったか
+        for i in range(n):
+            if a[i]-last_kireme>=x and l-a[i]>=x:
+                cnt += 1
+                last_kireme = a[i]
+        return cnt>=k
+
+    #二分探索 left:現在の上限, right:現在の下限
+    left, right = 1, 10**9
+    while left < right:
+        mid = (left+right+1)//2
+        ans = check(mid)
+        if ans==False:
+            right = mid-1
+        else:
+            left = mid
+    print(left)
