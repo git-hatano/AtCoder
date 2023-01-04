@@ -48,6 +48,34 @@ def C():
             ans.append(s[i])
     print(len(ans))
 
+"""
+3重ループは間に合わない
+"""
+def D_TLE():
+    from itertools import combinations
+    n = int(input())
+    l = list(map(int, input().split()))
+    ans = 0
+    for c in combinations(l, 3):
+        if c[0]<c[1]+c[2] and c[1]<c[2]+c[0] and c[2]<c[0]+c[1]:
+            ans += 1
+    print(ans)
 
-# def D():
 
+"""
+2重ループ+残りの辺を二分探索まで思いついたのは良かった
+が、実装できなかった
+https://drken1215.hatenablog.com/entry/2019/10/20/032700
+"""
+def D_ans():
+    from bisect import bisect_left
+    n = int(input())
+    l = list(map(int, input().split()))
+    l.sort()
+    ans = 0
+    for i in range(n):
+        for j in range(i+1, n):
+            k = bisect_left(l, l[i]+l[j])#短い2辺を固定
+            ans += max(k-(j+1), 0)
+            
+    print(ans)

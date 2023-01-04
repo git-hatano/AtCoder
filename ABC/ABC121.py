@@ -59,5 +59,55 @@ def C():
     print(ans)
 
 
-# def D():
+def D_TLE():
+    a, b = map(int, input().split())
+    for i in range(a+1, b+1):
+        a ^= i
+    print(a)
+
+
+def D_WA():
+    a, b = map(int, input().split())
+    if a==b:
+        print(a)
+    else:
+        cnt = 0
+        x = a
+        s = set()
+        s.add(x)
+        for i in range(a+1, 10**9):
+            x ^= i
+            if x not in s:
+                s.add(x)
+                cnt += 1
+            else:
+                break
+
+        if cnt>0:
+            c = b//cnt * cnt
+            for i in range(c, b+1):
+                x ^= i
+        print(x)
+
+
+"""
+数学問題（わからん）
+https://drken1215.hatenablog.com/entry/2019/03/09/224100
+排他的論理和の性質: a^x=b ならば x=a^b
++
+実験的に値の変化を確認したら、繰り返されていることに気づいたのでそれを実装した感じ？
+"""
+def D_ans():
+    def oddsolve(a):#奇数の場合は0か1
+        return ((a+1)//2)%2
+
+    def solve(a):
+        if a%2==1:
+            return oddsolve(a)
+        else:
+            return oddsolve(a+1) ^ (a+1)
+
+    a, b = map(int, input().split())
+    ans = solve(b) ^ solve(a-1)
+    print(ans)
 

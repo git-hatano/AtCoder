@@ -60,5 +60,19 @@ def C_WA():
             break
     print(mi)
 
-# def D():
 
+def C():
+    n = int(input())
+    a = list(map(int, input().split()))
+
+    while len(a)>1:
+        a.sort()
+        tmp = set()
+        tmp.add(a[0])
+        for i in range(1, len(a)):
+            v = a[i]%a[0]
+            if v!=0:
+                tmp.add(v)
+        a = list(tmp)
+
+    print(a[0])
