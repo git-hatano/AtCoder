@@ -5,7 +5,6 @@
 * Python3よりも、PyPy3の方が速い
 * numpyはできるだけ使わない
   * PyPyでは使えない（行列演算は楽だからOK）
-  * PandasはそもそもAtcoderでは使えない
 
 * 解けない問題にあたった時、具体例を考えてみる
 * 時間がかかってもいいから
@@ -196,6 +195,13 @@ from itertools import accumulate
 s = [0] + list(accumulate(a))
 ```
 
+### 重複組み合わせを列挙
+ABC165C のように広義単調増加の数列の候補が得られる
+```python
+from itertools import combinations_with_replacement as comb_rplc
+for seq in comb_rplc(range(1, m+1), n):
+    #seq: nが3なら, (1,1,1), (1,1,2), ..., (m,m,m) のような数列が得られる
+```
 
 ## collections
 ### 連想配列（辞書型）の初期化を省略する

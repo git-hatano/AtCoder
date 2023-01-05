@@ -85,3 +85,19 @@ def C_ans():
             ans = min(ans, i-1+j-1)
     print(ans)
 
+
+def D_WA():
+    import math
+    a, b, x = map(int, input().split())
+    ans = math.degrees(math.atan2(2*((a**2)*b-x), a**3))
+    print(ans)
+
+
+def D():
+    import math
+    a, b, x = map(int, input().split())
+    if 2*x >= (a**2)*b: # x/a >= 1/2*a*b
+        ans = math.degrees(math.atan2(2*((a**2)*b-x), a**3))
+    else:
+        ans = math.degrees(math.atan2(a*(b**2), 2*x))
+    print(ans)
