@@ -53,5 +53,48 @@ def C():
     print(s, num)
 
 
-# def D():
+def D_TLE():
+    from itertools import accumulate
+    n, k = map(int, input().split())
+    a = list(map(int, input().split()))
+    s = [0] + list(accumulate(a))
 
+    ans = 0
+    for i in range(n+1):
+        for j in range(i+1, n+1):
+            if s[j]-s[i]>=k:
+                ans += 1
+    print(ans)
+
+
+"""
+しゃくとり方もどき
+"""
+def D():
+    from itertools import accumulate
+    n, k = map(int, input().split())
+    a = list(map(int, input().split()))
+    #累積和
+    s = [0] + list(accumulate(a))
+    #スタート地点を管理
+    r = [-1]*(n+1)
+    ans = 0
+    for i in range(n+1):
+        #スタート地点を決める
+        if i==0:
+            r[i] = 0
+        else:
+            r[i] = r[i-1]
+        #既に右端まで到達していたら終了
+        if r[i]==n:
+            break
+        #スタートから合計がk未満のとこまで進む、k以上になったらそれ以降はずっとk以上
+        while True:
+            if r[i]<n and s[r[i]+1]-s[i]<k:
+                r[i] += 1
+            elif r[i]<n and s[r[i]+1]-s[i]>=k:
+                ans += n - r[i]
+                break
+            else:
+                break
+    print(ans)

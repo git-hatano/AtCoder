@@ -163,4 +163,68 @@ def C_ans():
     print(ans)
 
 
+"""
+sampleは通る
+"""
+def D_WA():
+    n = int(input())
+    a = list(map(int, input().split()))
+    #左から見た時
+    b = a.copy()
+    s = []
+    s.append(b[0])
+    for i in range(1, n):
+        if s[-1] < -(b[i-1]+b[i]):
+            s.append(-(b[i-1]+b[i]))
+            b[i-1] *= -1
+            b[i] *= -1
+        else:
+            s.append(b[i])
+    ans = sum(b)
+    #右から見た時
+    b = a.copy()
+    s = []
+    s.append(b[n-1])
+    for i in reversed(range(n-1)):
+        if s[-1] < -(b[i+1]+b[i]):
+            s.append(-(b[i+1]+b[i]))
+            b[i+1] *= -1
+            b[i] *= -1
+        else:
+            s.append(b[i])
+    ans = max(ans, sum(b))
+    print(ans)
 
+
+"""
+観察力（エスパー力）が必要な問題
+"""
+def D_ans():
+    n = int(input())
+    a = list(map(int, input().split()))
+
+    #aに含まれる数字の符号を調べる
+    plus = 0
+    minus = 0
+    zero = 0
+    for i in range(n):
+        if a[i]>0:
+            plus += 1
+        elif a[i]<0:
+            minus += 1
+        else:
+            zero += 1
+
+    ans = 0
+    if minus%2 == 0:
+        #マイナスの数が偶数なら、全てプラスにできる
+        ans = sum([abs(x) for x in a])
+    elif zero > 0:
+        #0が一つでもあれば、そこにマイナスを押し付けられる
+        ans = sum([abs(x) for x in a])
+    else:
+        #マイナスの数が奇数なら、絶対値が一番小さなものをマイナスに
+        mi = min([abs(x) for x in a])
+        ans = sum([abs(x) for x in a])
+        ans -= 2*mi
+    print(ans)
