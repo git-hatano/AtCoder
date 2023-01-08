@@ -106,7 +106,7 @@ def factorization(n):
 クエリ数が減らせないので、高速に素因数分解しないけない
 or メモしておく？
 """
-def D():
+def D_TLE():
     t = int(input())
     for i in range(t):
         n = int(input())
@@ -115,7 +115,29 @@ def D():
         print(f"{a[0][0]} {a[1][0]}")
 
 
-t = int(input())
-for i in range(t):
-    n = int(input())
+"""
+n = p^2 * q
+なので、
+min(p, q) <= n**(1/3)
+であることに気づいて探索範囲を狭められるかどうか
+"""
+def D_ans():
+    import math
+    t = int(input())
+    for i in range(t):
+        n = int(input())
+        p = 0
+        q = 0
+        for i in range(2, int(n**(1/3))+1):
+            if n%i != 0:
+                continue
+            #n自体が素数だけで構成されているから、下の分岐に入った時点で答えが見つかる
+            if (n//i)%i == 0:
+                p = i
+                q = n//(i**2)
+            else:
+                q = i
+                p = int(math.sqrt(n/i))
+            break
+        print(f"{p} {q}")
 
