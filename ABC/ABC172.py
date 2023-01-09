@@ -36,12 +36,63 @@ def B():
 
 """
 最小時間のものから読んでいけば良い？
+この考え方ではできない
 """
-# def C():
-n, m, k = map(int, input().split())
-a = list(map(int, input().split()))
-b = list(map(int, input().split()))
+def C_WA():
+    n, m, k = map(int, input().split())
+    a = list(map(int, input().split()))
+    b = list(map(int, input().split()))
+    a.append(10**9+10)
+    b.append(10**9+10)
+
+    time = 0
+    i = 0
+    j = 0
+    while True:
+        mi = min(a[i], b[j])
+        
+        if time+mi <= k:
+            time += mi
+            
+            if a[i]==mi:
+                i += 1
+            else:
+                j += 1
+        else:
+            break
+    ans = i+j
+    print(ans)
 
 
-# def D():
+"""
+しゃくとり法
+しゃくとり法は英語だと、2-pointers
+"""
+def D_ans():
+    n, m, k = map(int, input().split())
+    a = list(map(int, input().split()))
+    b = list(map(int, input().split()))
 
+    t = 0
+    #bをm冊全て読んだとき
+    for i in range(m):
+        t += b[i]
+
+    j = m
+    ans = 0
+    #aをi冊読む
+    for i in range(n+1):
+        #m冊のうち、kを超えている分を諦める: しゃくとり法
+        while j>0 and t>k:
+            j -= 1
+            t -= b[j]
+        #諦めてもkを超えてたらbreak
+        if t>k:
+            break
+        #読める冊数を更新
+        ans = max(ans, i+j)
+        #iがn冊未満なら、a[i]をtに追加
+        if i==n:
+            break
+        t += a[i]
+    print(ans)
