@@ -70,5 +70,32 @@ def C():
     print(ans)
 
 
-# def D():
-
+"""
+貪欲法（今勝てる時に勝つ）の考え方であっていた
+DPでも解けるらしいが設計できず
+"""
+def D():
+    from collections import deque
+    n, k = map(int, input().split())
+    r, s, p = map(int, input().split())
+    t = input()
+    #今出せないものを管理
+    que = deque([-1]*k)#今出せないもの
+    ans = 0
+    for i in range(n):
+        l = que.popleft()
+        
+        if t[i]=="r" and l!="p":
+            ans += p
+            que.append("p")
+        elif t[i]=="s" and l!="r":
+            ans += r
+            que.append("r")
+        elif t[i]=="p" and l!="s":
+            ans += s
+            que.append("s")
+        else:
+            #負け、あいこの場合はk手先で都合が良い方を出せるようにしておいた
+            ans += 0
+            que.append(-1)
+    print(ans)
