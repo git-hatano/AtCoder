@@ -59,6 +59,50 @@ def C():
         print("satisfiable")
 
 
+"""
+sampleは通る
+"""
+def D_WA():
+    n = int(input())
+    d = []
+    aoki = 0
+    for i in range(n):
+        a, b = map(int, input().split())
+        d.append([a+b, a, b])
+        aoki += a
+    d.sort(reverse=True)
 
-# def D():
+    takahashi = 0
+    ans = 0
+    for i in range(n):
+        takahashi += d[i][0]
+        aoki -= d[i][1]
+        if takahashi > aoki:
+            ans = i+1
+            break
+    print(ans)
 
+
+"""
+1回演説するごとに、2*a+bだけ差が生まれる
+その差が生まれやすい街から攻めれば良い
+"""
+def D_ans():
+    n = int(input())
+    d = []
+    aoki = 0
+    for i in range(n):
+        a, b = map(int, input().split())
+        d.append([2*a+b, a, b]) #key-point
+        aoki += a
+    d.sort(reverse=True)
+
+    takahashi = 0
+    ans = 0
+    for i in range(n):
+        takahashi += d[i][1]+d[i][2]
+        aoki -= d[i][1]
+        if takahashi > aoki:
+            ans = i+1
+            break
+    print(ans)
