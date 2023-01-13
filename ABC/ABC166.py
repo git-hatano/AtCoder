@@ -64,5 +64,39 @@ def C():
     print(ans)
 
 
-# def D():
+"""
+10**3: 探索範囲が狭くてWA
+10**4: TLE
+"""
+def D_TLE():
+    x = int(input())
+    for a in range(10**4):
+        for b in range(10**4):
+            if a**5-b**5 == x:
+                print(a, b)
+                break
+            if a**5+b**5 == x:
+                print(a, -b)
+                break
+
+"""
+xの取りうる範囲を考えないといけなかった
+200**5 - 199**5 = 7*10**9 > 10**9
+だから、a=200, b=199まで抑えて全探索すればよかった
+"""
+def D_ans():
+    x = int(input())
+    v = {}
+    for i in range(-1000, 1000):
+        v[i**5] = i
+
+    for key in v:
+        b5 = key
+        b = v[key]
+        
+        if x+b5 in v.keys():
+            a = v[x+b5]
+            print(a, b)
+            break
+
 
