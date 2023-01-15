@@ -281,6 +281,7 @@ def is_prime(n):
 ### 素因数分解
 2以上の整数n => [[素因数, 指数], ...]の2次元リストを返す ([参照元](https://qiita.com/snow67675476/items/e87ddb9285e27ea555f8))
 ```python
+# 計算量O(sqrt(n))
 def factorization(n):
     arr = []
     temp = n

@@ -114,5 +114,25 @@ def C():
         print(cost)
 
 
-# def D():
-
+def D():
+    n, k = map(int, input().split())
+    a = list(map(int, input().split()))
+    """
+    ダブリングを実装したい
+    dp[i]: 2**i回テレポートした時にいる町
+    10**18 < 2**60
+    """
+    #前計算
+    row = 61
+    dp = [[0]*(n) for i in range(row)]
+    for i in range(n):
+        dp[0][i] = a[i]-1
+    for i in range(1, row):
+        for j in range(n):
+            dp[i][j] = dp[i-1][dp[i-1][j]]
+    #kステップ後の町を求める
+    cur = 0
+    for i in reversed(range(row)):
+        if k // (1<<i) %2 != 0:
+            cur = dp[i][cur]
+    print(cur+1)
