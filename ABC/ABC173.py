@@ -65,5 +65,22 @@ def C():
     print(ans)
 
 
-# def D():
+def D():
+    import heapq
+    n = int(input())
+    a = list(map(int, input().split()))
+    #例題から仮定
+    a.sort(reverse=True)
+    #フレンドリーさの場所の個数を管理
+    que = [-a[0]]
+    heapq.heapify(que)
 
+    ans = 0
+    for i in range(1, n):
+        #一番フレンドリーさが大きい場所に入り込む
+        x = -heapq.heappop(que)
+        ans += x
+        #自分のフレンドリーさの場所が2つ増える
+        heapq.heappush(que, -a[i])
+        heapq.heappush(que, -a[i])
+    print(ans)

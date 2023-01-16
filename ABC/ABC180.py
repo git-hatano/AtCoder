@@ -60,5 +60,22 @@ def C():
         print(i)
 
 
-# def D():
-
+def D():
+    x, y, a, b = map(int, input().split())
+    ans = 0
+    #過去問ジムに行けるだけ行く
+    while True:
+        if x*a >= y:
+            break
+        if x*a > x+b: # if x*a > b: #ここの条件怪しかったかも
+            break
+        x *= a
+        ans += 1
+    #残りの分で行けるだけAtCoderジムに行く  
+    cnt_b = (y-x)//b
+    x += b*cnt_b
+    ans += cnt_b
+    if x >= y:
+        x -= b
+        ans -= 1
+    print(ans)
