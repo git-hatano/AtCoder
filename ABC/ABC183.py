@@ -41,26 +41,43 @@ def B():
     print(ans)
 
 
-# def C():
-from itertools import permutations
-n, k = map(int, input().split())
-ts = [list(map(int, input().split())) for _ in range(n)]
+def C():
+    from itertools import permutations
+    n, k = map(int, input().split())
+    ts = [list(map(int, input().split())) for _ in range(n)]
 
-ans = 0
-for p in permutations(range(n)):
-    cur = 0
-    tmp = 0
-    if p[0]==cur:
-        for t in p:
-            tmp += ts[cur][t]
-            cur = t
-        tmp += ts[cur][0]
-        if tmp==k:
-            ans += 1
-    else:
-        break
-print(ans)
+    ans = 0
+    for p in permutations(range(n)):
+        cur = 0
+        tmp = 0
+        if p[0]==cur:
+            for t in p:
+                tmp += ts[cur][t]
+                cur = t
+            tmp += ts[cur][0]
+            if tmp==k:
+                ans += 1
+        else:
+            break
+    print(ans)
 
 
-# def D():
+"""
+いもす法
+"""
+def D():
+    from itertools import accumulate
+    n, w = map(int, input().split())
+    max_t = 2*(10**5)+1
 
+    #変化量を記録
+    a = [0]*max_t
+    for i in range(n):
+        s, t, p = map(int, input().split())
+        a[s] += p
+        a[t] -= p
+
+    #累積和を取る: その時間の必要な量が求められる
+    s = list(accumulate(a))
+    ans = (w >= max(s))
+    print("Yes" if ans else "No")

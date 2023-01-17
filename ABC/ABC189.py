@@ -134,5 +134,47 @@ def C_ans():
     print(ans)
 
 
-# def D():
+def D_TLE():
+    from itertools import product
+    n = int(input())
+    s = [input() for i in range(n)]
+    ans = 0
+    for seq in product(range(0, 2), repeat=n+1): # O( 2**(n+1) ) で大きすぎる
+        # print(seq)
+        y = seq[0]
+        for i in range(n):
+            if s[i]=="AND":
+                y &= seq[i+1]
+            else:
+                y |= seq[i+1]
+        if y==1:
+            ans += 1
+    print(ans)
 
+
+"""
+https://yamakasa.net/atcoder-abc-189-d-logical-expression/
+dp[i][j]: y[i]=jになるときの場合の数
+j=0: False
+j=1: True
+"""
+def D_ans():
+    n = int(input())
+    s = [input() for i in range(n)]
+
+    dp = [[0]*2 for i in range(n+1)]
+    dp[0][0] = 1
+    dp[0][1] = 1
+
+    for i in range(n):
+        if s[i]=="AND":
+            # (True/Falseの2通り)*(今までFalseになる場合の数) + (Falseの1通り)*(今までTrueになる場合の数)
+            dp[i+1][0] = 2*dp[i][0] + 1*dp[i][1]
+            # (Trueの1通り)*(今までTrueになる場合の数)
+            dp[i+1][1] = 1*dp[i][1] 
+        else: #OR
+            # (Falseの1通り)*(今までFalseになる場合の数)
+            dp[i+1][0] = 1*dp[i][0]
+            # (Trueの1通り)*(今までFalseになる場合の数) + (True/Falseの2通り)*(今までTrueになる場合の数)
+            dp[i+1][1] = 1*dp[i][0] + 2*dp[i][1] 
+    print(dp[n][1])

@@ -66,5 +66,43 @@ def C():
     print(ans)
 
 
-# def D():
+"""
+sampleは通る
+mの求め方が良くなかった
+"""
+def D_WA():
+    from itertools import accumulate
+    n = int(input())
+    a = list(map(int, input().split()))
+    s = list(accumulate(a))
+    
+    m = [a[0]]
+    for i in range(1, n):
+        if m[-1]+a[i] > m[-1]:
+            m.append(m[-1]+a[i]) #ここがダメだった
+        else:
+            m.append(m[-1])
+
+    cur = 0 #現在地
+    ans = cur #最も右に行けた座標
+    for i in range(n):
+        ans = max(ans, cur+m[i])
+        cur += s[i]
+    print(ans)
+
+
+def D_ans():
+    from itertools import accumulate
+    n = int(input())
+    a = list(map(int, input().split()))
+    s = list(accumulate(a))
+
+    ans = 0
+    cur = 0 #現在の位置
+    max_s = 0 #累積和のi番目までの最大値: curから最も右に行ける幅
+    for i in range(n):
+        max_s = max(max_s, s[i])
+        ans = max(ans, cur+max_s)
+        cur += s[i]
+    print(ans)
 
