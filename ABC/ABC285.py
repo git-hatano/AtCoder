@@ -51,6 +51,7 @@ def C():
         ans += v*e
     print(ans)
 
+
 def D_TLE():
     n = int(input())
     s = [None]*n
@@ -75,7 +76,9 @@ def D_TLE():
             cnt += 1
     print("Yes" if ans else "No")
 
-
+"""
+TLEが取れてWAになった時点でロジックが間違ってる
+"""
 def D_WA():
     from collections import defaultdict
     n = int(input())
@@ -102,3 +105,33 @@ def D_WA():
             res[i%n] = True
             cnt += 1
     print("Yes" if ans else "No")
+
+
+"""
+グラフの形がサイクル、パスしかないので
+サイクルがあるかを判定すれば良い
+"""
+def D_ans():
+    import sys
+    n = int(input())
+    s = [None]*n
+    t = [None]*n
+    for i in range(n):
+        s[i], t[i] = input().split()
+
+    to = {} #有向グラフを作成
+    for i in range(n):
+        to[s[i]] = t[i]
+
+    used = set() #計算量削減のために一度訪れたところを記録
+    for ss in s: #始点を試す
+        ns = ss
+        while ns not in used:
+            used.add(ns)
+            if ns not in to.keys(): #行き先がなければbreak
+                break
+            ns = to[ns] #行き先があれば次に
+            if ns==ss: #始点に帰ってきたか（サイクルになってるか）を判定
+                print("No")
+                sys.exit()
+    print("Yes")

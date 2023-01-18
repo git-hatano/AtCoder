@@ -65,7 +65,6 @@ def C():
     for i in range(k):
         c, d = map(int, input().split())
         cd.append([c-1, d-1])
-
     #process
     ans = 0
     for bit in range(1 << k):
@@ -82,5 +81,44 @@ def C():
         
     print(ans)
 
-# def D():
+
+"""
+2*n と O(sqrt(2*n)) に観察して気付けたのはよかった
+"""
+def D_WA():
+    import math
+    n = int(input())
+    ans = 0
+    for i in range(1, int(math.sqrt(n*2))+1):
+        #nが奇数
+        if n%2==1 and (n*2)%i==0:
+            ans += 2
+        #nが偶数
+        if n%2==0 and i%2==1 and (n*2)%i==0:
+            ans += 2
+    print(ans)
+
+
+"""
+等差数列の和 N
+N = 1/2*n*(2*a +n -1)
+↓
+2*N/n = 2*a-1 : 奇数になる
+n: 項数, a: 初項
+"""
+def D_ans():
+    import math
+    n = int(input())
+    ans = 0
+    for i in range(1, int(math.sqrt(n*2))+1):
+        if (2*n)%i==0:
+            #約数の小さい方
+            d = i
+            if (2*n//d - d)%2==1:
+                ans += 1
+            #約数の大きい方
+            d = (2*n)//i
+            if (2*n//d - d)%2==1:
+                ans += 1
+    print(ans)
 
