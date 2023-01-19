@@ -19,12 +19,19 @@ print("Yes" if ans else "No")
 ans = " ".join([str(x) for x in a])
 '''
 
-# def A():
+def A():
+    t, x = map(int, input().split())
+    print(t/x)
 
 
-
-# def B():
-
+def B():
+    n = int(input())
+    l = list(map(int, input().split()))
+    l.sort()
+    ans = False
+    if l[-1] < sum(l[:-1]):
+        ans = True
+    print("Yes" if ans else "No")
 
 
 def C():
