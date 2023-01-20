@@ -39,7 +39,6 @@ def B():
 
 def C():
     a, b, c = map(int, input().split())
-
     if c==0:
         a = 1
         b = 1
@@ -48,7 +47,6 @@ def C():
             a *= -1
         if b<0:
             b *= -1
-
     if a<b:
         print("<")
     elif a>b:
@@ -57,5 +55,52 @@ def C():
         print("=")
 
 
-# def D():
+"""
+二分探索?
+うまく実装できない
+"""
+def D_WA_TLE():
+    from bisect import bisect_left
+    n, q = map(int, input().split())
+    a = list(map(int, input().split()))
+    set_a = set(a)
 
+    for i in range(q):
+        k = int(input())
+        #kより小さな個数をカウント
+        less_than_x_count = bisect_left(a, k)
+        if less_than_x_count==n:
+            less_than_x_count -= 1
+        #カウントの分だけ追加で探索
+        cnt = a[less_than_x_count] - less_than_x_count
+        if a[less_than_x_count]==k:
+            cnt -= 1
+        j = a[less_than_x_count]
+        while True:
+            if cnt==k:
+                ans = j-1
+                break
+            if j not in set_a:
+                cnt += 1
+            j += 1
+        print(ans)
+
+
+def D_ans():
+    from bisect import bisect_left
+    n, q = map(int, input().split())
+    a = list(map(int, input().split()))
+    #a[i]より前に幾つ数かあるかを計算
+    c = [0]*n
+    for i in range(n):
+        c[i] = a[i]-i-1
+
+    for i in range(q):
+        k = int(input())
+        r = bisect_left(c, k)
+        ans = -1
+        if r==0:
+            ans = k
+        else:
+            ans = a[r-1] + (k - c[r-1])
+        print(ans)
