@@ -43,7 +43,6 @@ def C():
     n, m = map(int, input().split())
     a = list(map(int, input().split()))
     b = list(map(int, input().split()))
-
     a = sorted(a)
     b = sorted(b)
 
@@ -58,9 +57,28 @@ def C():
             i += 1
         else:
             break
-
     print(ans)
 
 
-# def D():
+def D():
+    import heapq
+    que = []
+    heapq.heapify(que)
 
+    q2_value = 0 #クエリ2の補正値
+    q = int(input())
+    for i in range(q):
+        query = input().split()
+        if query[0]=="1":
+            x = int(query[1])
+            heapq.heappush(que, (x-q2_value, q2_value)) #補正値を引いて格納
+        
+        elif query[0]=="2":
+            x = int(query[1])
+            q2_value += x
+        
+        elif query[0]=="3":
+            p = heapq.heappop(que)
+            ans = p[0] + p[1] #元の数字に戻す
+            ans += q2_value - p[1] #自分が格納された以降の補正値を反映
+            print(ans)
