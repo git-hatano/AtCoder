@@ -79,8 +79,75 @@ def C():
         print(f"{c} {d}")
 
 
+"""
+DFSに気づいたのはよかった
+return が要らなかった
+"""
+def D_WA():
+    import sys
+    from collections import defaultdict
+    n = int(input())
+    g = defaultdict(list)
+    for _ in range(n-1):
+        a, b = map(int, input().split())
+        a -= 1
+        b -= 1
+        g[a].append(b)
+        g[b].append(a)
+    #小さい順に
+    for e in g:
+        g[e].sort()
+
+    visit = set()
+    path = []
+    def dfs(cur, pre):
+        if cur==0 and len(visit)==n:
+            path.append(cur)
+            ans = " ".join([ str(x+1) for x in path ])
+            print(ans)
+            sys.exit()
+        if cur!=0 and cur in visit:
+            return
+        visit.add(cur)
+        path.append(cur)
+        for nex in g[cur]:
+            if nex!=pre:
+                dfs(nex, cur)
+
+    cur = 0
+    pre = -1
+    dfs(cur, pre)
 
 
+"""
+DFSわかんねえ
+"""
+def D_ans():
+    import sys
+    sys.setrecursionlimit(300000)
+    from collections import defaultdict
+    n = int(input())
+    g = defaultdict(list)
+    for _ in range(n-1):
+        a, b = map(int, input().split())
+        a -= 1
+        b -= 1
+        g[a].append(b)
+        g[b].append(a)
+    #小さい順に
+    for e in g:
+        g[e].sort()
 
-# def D():
+    path = []
+    def dfs(cur, pre): #returnを無駄に書いて合わなくなっていた
+        path.append(cur)
+        for nex in g[cur]:
+            if nex!=pre:
+                dfs(nex, cur)
+                path.append(cur)
+
+    cur = 0
+    pre = -1
+    dfs(cur, pre)
+    print(" ".join([str(x+1) for x in path]))
 
