@@ -16,8 +16,92 @@
 	// 	"description": "Log output to console"
 	// }
 	
-	// input
-	"graph": {
+	// input / int----------------------------------------------------
+	"int input": {
+		"scope": "python",
+		"prefix": "ii",
+		"body": [
+			"n = int(input())",
+		],
+		"description": "1つの整数を入力"
+	},
+
+	"multi int input": {
+		"scope": "python",
+		"prefix": "mii",
+		"body": [
+			"a, b = map(int, input().split())",
+		],
+		"description": "複数の整数を入力"
+	},
+
+	"list int input": {
+		"scope": "python",
+		"prefix": "lii",
+		"body": [
+			"a = list(map(int, input().split()))",
+		],
+		"description": "整数のリストを入力"
+	},
+
+	"tow-dimentions int array input": {
+		"scope": "python",
+		"prefix": "tdi",
+		"body": [
+			"h, w = map(int, input().split())",
+			"a = [list(map(int, input().split())) for _ in range(h)]",
+		],
+		"description": "2次元のリストを入力"
+	},
+
+	// input / str----------------------------------------------------
+	"str input": {
+		"scope": "python",
+		"prefix": "si",
+		"body": [
+			"s = input()",
+		],
+		"description": "1つの文字列を入力"
+	},
+
+	"multi str input": {
+		"scope": "python",
+		"prefix": "msi",
+		"body": [
+			"s, t = input().split()",
+		],
+		"description": "複数の文字列を入力"
+	},
+
+	"list str input": {
+		"scope": "python",
+		"prefix": "lsi",
+		"body": [
+			"s = list(input().split())",
+		],
+		"description": "文字列のリストを入力"
+	},
+
+	// init ---------------------------------------------
+	"one-dimention array": {
+		"scope": "python",
+		"prefix": "oda",
+		"body": [
+			"a = [0]*(n)",
+		],
+		"description": "サイズnの1次元配列を作成"
+	},
+
+	"two-dimentions array": {
+		"scope": "python",
+		"prefix": "tda",
+		"body": [
+			"a = [[0]*(m) for i in range(n)]",
+		],
+		"description": "行n, 幅mの2次元配列を作成"
+	},
+
+	"graph for n-edges": {
 		"scope": "python",
 		"prefix": "graph",
 		"body": [
@@ -31,16 +115,16 @@
 			"    g[a].append(b)",
 			"    g[b].append(a)",
 		],
-		"description": "create graph"
+		"description": "辺がn個のグラフを作成"
 	},
 
-	// other
+	// other ---------------------------------------------
 	"recursionlimit": {
 		"scope": "python",
 		"prefix": "recursionlimit",
 		"body": [
 			"import sys",
-			"sys.setrecursionlimit(300000)",
+			"sys.setrecursionlimit(10**9)",
 		],
 		"description": "再帰関数のおまじない. pythonで提出"
 	},
