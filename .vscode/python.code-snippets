@@ -119,6 +119,15 @@
 	},
 
 	// other ---------------------------------------------
+	"repeat": {
+		"scope": "python",
+		"prefix": "rep",
+		"body": [
+			"for i in range(n):",
+		],
+		"description": "forループ"
+	},
+
 	"recursionlimit": {
 		"scope": "python",
 		"prefix": "recursionlimit",
