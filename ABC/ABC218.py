@@ -98,10 +98,61 @@ def C_ans():
     t = []
     for i in range(n):
         t.append(list(input()))
-
     print("Yes" if judge(s, t) else "No")
 
 
+"""
+4点を選んで長方形になるかを確認
+nC4は流石にTLE
+"""
+def D_TLE():
+    from itertools import combinations
+    n = int(input())
+    a = [list(map(int, input().split())) for _ in range(n)]
+    ans = 0
+    for c in combinations(a, 4):
+        #x or y軸に並行な辺が1つでもあるか
+        flag = False
+        for i in range(1, 4):
+            if c[0][0]==c[i][0] or c[0][1]==c[i][1]:
+                flag = True
+                break
+        if not flag:
+            continue
+        
+        #対角線が重心で交わるか
+        mx = (c[0][0]+c[1][0]+c[2][0]+c[3][0])#/4
+        my = (c[0][1]+c[1][1]+c[2][1]+c[3][1])#/4
+        
+        d_pow2 = (4*c[0][0]-mx)**2 + (4*c[0][1]-my)**2
+        res = True
+        for i in range(1, 4):
+            d_pow2_tmp = (4*c[i][0]-mx)**2 + (4*c[i][1]-my)**2
+            if d_pow2!=d_pow2_tmp:
+                res = False
+                break
+        if res:
+            ans += 1
+    print(ans)
 
-# def D():
 
+"""
+2点（左上、右下）を決めて、
+残りの2点（右上、左下）が存在するかをカウント
+"""
+def D_ans():
+    n = int(input())
+    x = [0]*n
+    y = [0]*n
+    for i in range(n):
+        x[i], y[i] = map(int, input().split())
+    s = set()
+    for i in range(n):
+        s.add((x[i], y[i])) #set()にタプルなら入る
+    ans = 0
+    for i in range(n):
+        for j in range(n):
+            if x[i]<x[j] and y[i]<y[j]: #左上、右下の関係にあるか
+                if (x[i], y[j]) in s and (x[j], y[i]) in s: #右上、左下の点があるか
+                    ans += 1
+    print(ans)
