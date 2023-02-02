@@ -309,6 +309,25 @@ def factorization_1d(n):
     return nums
 ```
 
+### 素数の列挙
+素数の列挙にはエラトステネスの篩([参照元](https://amateur-engineer-blog.com/prime/))
+```python
+import math
+def sieve_of_eratosthenes(n):
+    prime = [True for i in range(n+1)]
+    prime[0] = False
+    prime[1] = False
+    sqrt_n = math.ceil(math.sqrt(n))
+    for i in range(2, sqrt_n):
+        if prime[i]:
+            for j in range(2*i, n+1, i):
+                prime[j] = False
+    return prime
+
+# 素数の列挙
+prime = sieve_of_eratosthenes(n)
+```
+
 ### 組み合わせの総数を算出 
 nCr の結果を返す ([参照元](https://note.nkmk.me/python-math-factorial-permutations-combinations/))
 ```python

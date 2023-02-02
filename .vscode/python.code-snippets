@@ -128,9 +128,9 @@
 		"description": "forループ"
 	},
 
-	"recursionlimit": {
+	"set recursion limit": {
 		"scope": "python",
-		"prefix": "recursionlimit",
+		"prefix": "srl",
 		"body": [
 			"import sys",
 			"sys.setrecursionlimit(10**9)",
