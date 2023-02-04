@@ -82,6 +82,26 @@
 		"description": "文字列のリストを入力"
 	},
 
+	"list str input horizon": {
+		"scope": "python",
+		"prefix": "lsih",
+		"body": [
+			"n = int(input())",
+			"s = [input() for i in range(n)]",
+		],
+		"description": "縦方向の文字列をリストで入力"
+	},
+
+	"tow-dimentions str array input": {
+		"scope": "python",
+		"prefix": "tds",
+		"body": [
+			"h, w = map(int, input().split())",
+			"a = [list(input().split()) for _ in range(h)]",
+		],
+		"description": "空白区切の２次元の文字列をリストで入力"
+	},
+
 	// init ---------------------------------------------
 	"one-dimention array": {
 		"scope": "python",
