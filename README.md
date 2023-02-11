@@ -195,12 +195,20 @@ from itertools import accumulate
 s = [0] + list(accumulate(a))
 ```
 
-### 重複組み合わせを列挙
+### 重複組み合わせ
 ABC165C のように広義単調増加の数列の候補が得られる
 ```python
 from itertools import combinations_with_replacement as comb_rplc
 for seq in comb_rplc(range(1, m+1), n):
     #seq: nが3なら, (1,1,1), (1,1,2), ..., (m,m,m) のような数列が得られる
+```
+
+### 重複順列
+range(n)に含まれる要素をrepeat桁用意: repeat桁のn進数が作れる
+```python
+from itertools import product
+for seq in product(range(4), repeat=3):
+    print(seq) # (0,0,0), (0,0,1), ..., (3, 3, 2), (3, 3, 3)
 ```
 
 ## collections
