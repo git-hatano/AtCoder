@@ -273,6 +273,20 @@ def lcm(x, y):
     return (x * y) // math.gcd(x, y)
 ```
 
+### 約数を取得
+引数の約数を昇順のリストで返す
+```python
+def divisor_list(num):
+    divisors = []
+    for i in range(1, int(num**0.5)+1):
+        if num % i == 0:
+            divisors.append(i)  
+            if i**2 == num:
+                continue
+            divisors.append(int(num/i))
+    return sorted(divisors)
+```
+
 ### 素数判定
 引数nが素数ならTrueを返す
 ```python
