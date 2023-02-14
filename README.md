@@ -155,6 +155,12 @@ x = [
 x = sorted(x)
 ```
 
+### dict型をvalueでソート
+辞書型でなく、[(key0, value0), (key1, value1), ...]の形で返ってくるのは注意
+```python
+list_a = sorted(dic_a.items(), key=lambda x: x[1], reverse=True)
+```
+
 ### 2次元のリストの列方向の最大値
 ```python
 col = 1 #最大値を取得したい列番号
