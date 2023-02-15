@@ -34,8 +34,20 @@ def A():
 # def B():
 
 
+def C():
+    n, k = map(int, input().split())
+    h = []
+    for i in range(n):
+        h.append(int(input()))
+    h.sort(reverse=True)
 
-def C_TLE():
+    ans = float("inf")
+    for i in range(n-k+1):
+        ans = min(ans, h[i]-h[i+k-1])
+    print(ans)
+
+
+def D_TLE():
     n, x = map(int, input().split())
     cur = "P" #level0
     for i in range(n):
@@ -58,7 +70,7 @@ def C_TLE():
 https://blog.hamayanhamayan.com/entry/2018/12/09/101457
 再帰的な構造を含む問題は、大体再帰関数を使って解く、らしい
 """
-def C_ans():
+def D_ans():
     import sys
     sys.setrecursionlimit(10**9)
     n, x = map(int, input().split())
