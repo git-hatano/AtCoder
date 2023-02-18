@@ -24,8 +24,27 @@ def A():
     print(int(1/2*a*b))
 
 
-# def B():
+def B():
+    def f(n):
+        if n%2==0:
+            return n//2
+        else:
+            return 3*n+1
 
+    n = int(input())
+    s = set()
+    a = []
+    for i in range(10**9):
+        if i==0:
+            s.add(n)
+            a.append(n)
+        else:
+            v = f(a[i-1])
+            if v in s:
+                break
+            s.add(v)
+            a.append(v)
+    print(i+1)
 
 
 def C():

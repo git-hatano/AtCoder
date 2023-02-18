@@ -31,7 +31,19 @@ def A():
         print("Christmas Eve Eve Eve")
 
 
-# def B():
+def B():
+    n = int(input())
+    p = []
+    for i in range(n):
+        p.append(int(input()))
+    p.sort()
+    ans = 0
+    for i in range(n):
+        if i==n-1:
+            ans += p[i]//2
+        else:
+            ans += p[i]
+    print(ans)
 
 
 def C():
