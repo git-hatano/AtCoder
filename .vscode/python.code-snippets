@@ -148,6 +148,15 @@
 		"description": "forループ"
 	},
 
+	"init inf": {
+		"scope": "python",
+		"prefix": "inf",
+		"body": [
+			"x = float('inf')",
+		],
+		"description": "無限大の初期値を用意"
+	},
+
 	"set recursion limit": {
 		"scope": "python",
 		"prefix": "srl",

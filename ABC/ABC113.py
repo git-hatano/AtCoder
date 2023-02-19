@@ -23,8 +23,18 @@ ans = " ".join([str(x) for x in a])
 
 
 
-# def B():
-
+def B():
+    n = int(input())
+    t, a = map(int, input().split())
+    h = list(map(int, input().split()))
+    diff = float("inf")
+    ans = -1
+    for i in range(n):
+        tmp = t - h[i]*0.006
+        if abs(tmp - a) < diff:
+            ans = i+1
+            diff = abs(tmp - a)
+    print(ans)
 
 
 def C():

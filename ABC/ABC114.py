@@ -23,8 +23,13 @@ ans = " ".join([str(x) for x in a])
 
 
 
-# def B():
-
+def B():
+    s = input()
+    n = len(s)
+    ans = float("inf")
+    for i in range(n-2):
+        ans = min(ans, abs(753-int(s[i:i+3])))
+    print(ans)
 
 
 def C():
