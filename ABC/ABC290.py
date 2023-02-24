@@ -58,20 +58,38 @@ def C():
     print(ans)
 
 
-# def D():
-memo = {}
-t = int(input())
-for _ in range(t):
-    n, d, k = map(int, input().split())
-    d %= n
-    if n not in memo:
-        memo[n] = list(range(n))
-    
-    if k==1:
-        print(0)
-    else:
-        j = (d*(k-1))%n
-        if j==0:
-            j += 1
-        print(memo[n][j])
+def D_WA():
+    memo = {}
+    t = int(input())
+    for _ in range(t):
+        n, d, k = map(int, input().split())
+        d %= n
+        if n not in memo:
+            memo[n] = list(range(n))
+        
+        if k==1:
+            print(0)
+        else:
+            j = (d*(k-1))%n
+            if j==0:
+                j += 1
+            print(memo[n][j])
 
+
+"""
+整数論的な問題
+知ってないと難しい、らしい(全然分からん)
+"""
+def D_ans():
+    import math
+    t = int(input())
+    for _ in range(t):
+        n, d, k = map(int, input().split())
+        k -= 1
+        g = math.gcd(n, d)
+        m = n//g
+        e = d//g
+        b = (k*e)%m
+        i = k//m
+        ans = b*g+i
+        print(ans)

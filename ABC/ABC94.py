@@ -46,5 +46,37 @@ def C():
         print(a[j])
 
 
-# def D():
+def D_TLE():
+    import math
+    def combinations_count(n, r):
+        return math.factorial(n) // (math.factorial(n - r) * math.factorial(r))
+
+    n = int(input())
+    a = list(map(int, input().split()))
+    ans = []
+    ma = 0
+    for i in range(n):
+        for j in range(n):
+            if i!=j and a[i]>a[j]:
+                tmp = combinations_count(a[i], a[j])
+                if tmp > ma:
+                    ma = tmp
+                    ans = [a[i], a[j]]
+    print(f"{ans[0]} {ans[1]}")
+
+
+"""
+aiはできるだけ大きいものを
+ajはai//2に近いものを
+"""
+def D():
+    n = int(input())
+    a = list(map(int, input().split()))
+    a.sort()
+    ai = a[n-1]
+    aj = a[0]
+    for i in range(n-1):
+        if abs(a[i] - ai//2) <= abs(aj - ai//2):
+            aj = a[i]
+    print(f"{ai} {aj}")
 
