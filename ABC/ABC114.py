@@ -19,8 +19,12 @@ print("Yes" if ans else "No")
 ans = " ".join([str(x) for x in a])
 '''
 
-# def A():
-
+def A():
+    n = int(input())
+    if n in [3, 5, 7]:
+        print("YES")
+    else:
+        print("NO")
 
 
 def B():
