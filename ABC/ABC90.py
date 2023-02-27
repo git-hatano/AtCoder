@@ -42,5 +42,33 @@ def C():
     print(ans)
 
 
-# def D():
+def D_TLE():
+    n, k = map(int, input().split())
+    ans = 0
+    for a in range(1, n+1):
+        for b in range(1, n+1):
+            if a%b>=k:
+                ans += 1
+    print(ans)
+
+
+def D():
+    import sys
+    n, k = map(int, input().split())
+    ans = 0
+    if k==0:
+        ans = n*n
+        print(ans)
+        sys.exit()
+
+    for b in range(1, n+1):
+        if k<=b:
+            c = n//b
+            ans += max(0, (b-k)*c)
+            
+            c = n%b
+            if c!=0:
+                ans += max(0, c-k+1)
+    print(ans)
+
 
