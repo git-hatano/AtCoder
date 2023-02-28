@@ -157,6 +157,15 @@
 		"description": "無限大の初期値を用意"
 	},
 
+	"init vector": {
+		"scope": "python",
+		"prefix": "vec",
+		"body": [
+			"vec = [[-1, 0], [1, 0], [0, -1], [0, 1]] #i,j",
+		],
+		"description": "２次元配列で移動できる方向を定義"
+	},
+
 	"set recursion limit": {
 		"scope": "python",
 		"prefix": "srl",
