@@ -148,6 +148,16 @@
 		"description": "forループ"
 	},
 
+	"double repeat": {
+		"scope": "python",
+		"prefix": "rep2",
+		"body": [
+			"for i in range(n):",
+			"    for j in range(m):",
+		],
+		"description": "2重ループ"
+	},
+
 	"init inf": {
 		"scope": "python",
 		"prefix": "inf",
