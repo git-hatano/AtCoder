@@ -107,7 +107,7 @@
 		"scope": "python",
 		"prefix": "oda",
 		"body": [
-			"a = [0]*(n)",
+			"a = [None]*n",
 		],
 		"description": "サイズnの1次元配列を作成"
 	},

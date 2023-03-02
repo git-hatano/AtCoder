@@ -217,6 +217,14 @@ for seq in product(range(4), repeat=3):
     print(seq) # (0,0,0), (0,0,1), ..., (3, 3, 2), (3, 3, 3)
 ```
 
+### 全bit探索: 重複順列版
+repeat桁のbitマスクが簡単にできる ([参照元](https://qiita.com/conf8o/items/ba024813b9d9ce934d58))
+```python
+from itertools import product
+for bits in product([0, 1], repeat=3):
+        print(bits) #(0,0,0), (0,0,1), ... (1,1,1)
+```
+
 ## collections
 ### 連想配列（辞書型）の初期化を省略する
 defaultdict を使うと存在していないkeyが入ったとき、指定した値で初期化してくれる
