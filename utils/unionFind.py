@@ -6,9 +6,9 @@ https://qiita.com/u2dayo/items/ab391f099b706f651599#d%E5%95%8F%E9%A1%8Cneighbors
 [使用例]
 ABC231 D
 """
-from typing import List
 
 class UnionFind:
+    from typing import List
     """0-indexed"""
     def __init__(self, n):
         self.n = n
@@ -75,6 +75,7 @@ class UnionFind:
 
 """
 鉄則本9章
+無向グラフの連結性: UnionFind
 """
 class UnionFind_simple:
     def __init__(self, n) -> None:

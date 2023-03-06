@@ -19,8 +19,10 @@ print("Yes" if ans else "No")
 ans = " ".join([str(x) for x in a])
 '''
 
-# def A():
-
+def A():
+    x, y = map(int, input().split())
+    ans = x+y//2
+    print(ans)
 
 
 def B():
