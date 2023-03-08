@@ -23,8 +23,14 @@ ans = " ".join([str(x) for x in a])
 
 
 
-# def B():
-
+def B():
+    a, b, x = map(int, input().split())
+    cnt_a = a//x
+    cnt_b = b//x
+    ans = cnt_b-cnt_a
+    if a%x==0:
+        ans += 1
+    print(ans)
 
 
 def C_WA():
