@@ -23,8 +23,13 @@ ans = " ".join([str(x) for x in a])
 
 
 
-# def B():
-
+def B():
+    n = int(input())
+    for i in range(1, 10):
+        x = 100*i + 10*i + i
+        if x>=n:
+            print(x)
+            break
 
 
 def C_WA():
