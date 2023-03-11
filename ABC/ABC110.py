@@ -23,7 +23,18 @@ ans = " ".join([str(x) for x in a])
 
 
 
-# def B():
+def B():
+    n, m, x, y = map(int, input().split())
+    xs = list(map(int, input().split()))
+    ys = list(map(int, input().split()))
+
+    xs.sort()
+    ys.sort()
+    ans = False
+    for i in range(101):
+        if x<i<=y and xs[-1]<i and i<=ys[0]:
+            ans = True
+    print("No War" if ans else "War")
 
 
 """
