@@ -4,7 +4,8 @@ UnionFind
 https://qiita.com/u2dayo/items/ab391f099b706f651599#d%E5%95%8F%E9%A1%8Cneighbors
 
 [使用例]
-ABC231 D
+無向グラフの連結性
+サイクルの検出: 既に同じ連結成分を再度連結するとき
 """
 
 class UnionFind:
@@ -75,7 +76,6 @@ class UnionFind:
 
 """
 鉄則本9章
-無向グラフの連結性: UnionFind
 """
 class UnionFind_simple:
     def __init__(self, n) -> None:
