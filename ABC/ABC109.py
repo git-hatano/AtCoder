@@ -23,8 +23,20 @@ ans = " ".join([str(x) for x in a])
 
 
 
-# def B():
-
+def B():
+    n = int(input())
+    ss = set()
+    words = []
+    ans = True
+    for i in range(n):
+        s = input()
+        if s in ss:
+            ans = False
+        if len(words)>0 and words[-1][-1]!=s[0]:
+            ans = False
+        ss.add(s)
+        words.append(s)
+    print("Yes" if ans else "No")
 
 
 def C():

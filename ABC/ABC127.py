@@ -47,5 +47,31 @@ def C():
     print(ans)
 
 
-# def D():
-
+def D():
+    from collections import defaultdict
+    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
+    a.sort()
+    bc = [list(map(int, input().split())) for _ in range(m)]
+    bc.sort(key=lambda x: x[1], reverse=True)
+    #変換先の数字をカウント
+    cnter = defaultdict(int)
+    for i in range(m):
+        k = bc[i][1] #c
+        v = bc[i][0] #b
+        cnter[k] += v
+    #変換先の数字を管理
+    keys = list(cnter.keys())
+    ki = 0
+    #a[i]の小さい方から変換
+    for i in range(n):
+        if ki<len(keys):
+            key = keys[ki]
+            if key>a[i]:
+                a[i] = key
+                cnter[key] -= 1
+                if cnter[key]==0:
+                    del cnter[key]
+                    ki += 1
+    ans = sum(a)
+    print(ans)
