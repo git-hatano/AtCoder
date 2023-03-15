@@ -70,5 +70,34 @@ def C_ans():
     print(ans)
 
 
-# def D():
+def D():
+    n = int(input())
+    s = []
+    for i in range(2):
+        s.append(list(input()))
+    mod = 1000000007
 
+    ans = 1
+    i = 0
+    #左から順に塗っていく
+    while i<n:
+        if s[0][i]==s[1][i]:#縦
+            if i==0:
+                ans *= 3
+            else:
+                if s[0][i-1]==s[1][i-1]:#縦
+                    ans *= 2
+                else:
+                    ans *= 1
+            i += 1
+        else: #横
+            if i==0:
+                ans *= 3*2
+            else:
+                if s[0][i-1]==s[1][i-1]:#縦
+                    ans *= 2
+                else:
+                    ans *= 3
+            i += 2
+        ans %= mod
+    print(ans)

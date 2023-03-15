@@ -50,5 +50,32 @@ def C_ans():
         print(ans)
 
 
-# def D():
+import math
+def sieve_of_eratosthenes(n):
+    prime = [True for i in range(n+1)]
+    prime[0] = False
+    prime[1] = False
+    sqrt_n = math.ceil(math.sqrt(n))
+    for i in range(2, sqrt_n):
+        if prime[i]:
+            for j in range(2*i, n+1, i):
+                prime[j] = False
+    return prime
 
+def D():
+    n = 10**5+1
+    #素数の列挙
+    prime = sieve_of_eratosthenes(n)
+    #予め条件に合う数字の個数の累積和を準備
+    cnts = [0]*n
+    for i in range(1, n):
+        if i%2==1 and prime[i]==True and prime[(i+1)//2]==True:
+            cnts[i] = cnts[i-1]+1
+        else:
+            cnts[i] = cnts[i-1]
+    #各クエリに対応
+    q = int(input())
+    for i in range(q):
+        l, r = list(map(int, input().split()))
+        ans = cnts[r] - cnts[l-1]
+        print(ans)

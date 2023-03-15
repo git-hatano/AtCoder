@@ -37,8 +37,31 @@ def B():
     print(" ".join(ans))
 
 
-# def C():
+"""
+問題文自体が良くわからん
+"""
+def C_ans():
+    h, w = map(int, input().split())
+    grid = []
+    for i in range(h):
+        s = input()
+        grid.append([1 if c=="#" else 0 for c in s])# "#"を1, "."を0に変換
 
+    ans = 0
+    for row in range(h-1):
+        for col in range(w-1):
+            #2x2マスの正方領域を全探索
+            cnt = 0
+            cnt += grid[row][col]    #左上
+            cnt += grid[row][col+1]  #右上
+            cnt += grid[row+1][col]  #左下
+            cnt += grid[row+1][col+1]#右下
+            
+            if cnt==1:
+                ans += 1
+            elif cnt==3:
+                ans += 1
+    print(ans)
 
 
 # def D():
