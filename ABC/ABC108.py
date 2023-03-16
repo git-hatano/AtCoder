@@ -22,8 +22,22 @@ ans = " ".join([str(x) for x in a])
 # def A():
 
 
+"""
+回転行列知ってるか問題
+"""
+def B():
+    x1, y1, x2, y2 = map(int, input().split())
+    vec = [x2-x1, y2-y1]
+    #90deg rotate
+    vec = [-vec[1], vec[0]]
+    x3 = x2 + vec[0]
+    y3 = y2 + vec[1]
+    #90deg rotate
+    vec = [-vec[1], vec[0]]
+    x4 = x3 + vec[0]
+    y4 = y3 + vec[1]
 
-# def B():
+    print(f"{x3} {y3} {x4} {y4}")
 
 
 """
