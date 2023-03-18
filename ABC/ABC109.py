@@ -19,8 +19,12 @@ print("Yes" if ans else "No")
 ans = " ".join([str(x) for x in a])
 '''
 
-# def A():
-
+def A():
+    a, b = map(int, input().split())
+    ans = False
+    if a%2==1 and b%2==1:
+        ans = True
+    print("Yes" if ans else "No")
 
 
 def B():
