@@ -19,8 +19,13 @@ print("Yes" if ans else "No")
 ans = " ".join([str(x) for x in a])
 '''
 
-# def A():
-
+def A():
+    n = int(input())
+    if n%2==1:
+        ans = (n//2+1)*(n//2)
+    else:
+        ans = (n//2)*(n//2)
+    print(ans)
 
 """
 回転行列知ってるか問題

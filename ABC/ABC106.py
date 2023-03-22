@@ -26,7 +26,6 @@ ans = " ".join([str(x) for x in a])
 # def B():
 
 
-
 def C():
     s = input()
     k = int(input())

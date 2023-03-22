@@ -19,11 +19,21 @@ print("Yes" if ans else "No")
 ans = " ".join([str(x) for x in a])
 '''
 
-# def A():
+def A():
+    n = int(input())
+    if n%2==0:
+        ans=n
+    else:
+        ans=n*2
+    print(ans)
 
 
-
-# def B():
+def B():
+    n = int(input())
+    a = list(map(int, input().split()))
+    a.sort()
+    ans = abs(a[0]-a[-1])
+    print(ans)
 
 
 """

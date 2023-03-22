@@ -64,4 +64,15 @@ def C():
 
 
 # def D():
+import sys
+from collections import Counter
+n, k = map(int, input().split())
+s = [int(x) for x in input()]
+counter = Counter(s)
+
+if 1 in counter and counter[1]==n:
+    ans = n
+    print(ans)
+    sys.exit()
+
 
