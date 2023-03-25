@@ -24,7 +24,41 @@ def A():
     print(n-i+1)
 
 
-# def B():
+def rot(s):
+    return list(zip(*s[::-1]))
+
+def B():
+    h, w = map(int, input().split())
+    a = [list(input()) for _ in range(h)]
+    tmp = []
+    for i in range(h):
+        white = True
+        for j in range(w):
+            if a[i][j]=="#":
+                white = False
+                break
+        if not white:
+            tmp.append(a[i])
+
+    tmp = rot(tmp)
+    tmp_h = len(tmp)
+    tmp_w = len(tmp[0])
+    tmp2 = []
+    for i in range(tmp_h):
+        white = True
+        for j in range(tmp_w):
+            if tmp[i][j]=="#":
+                white = False
+                break
+        if not white:
+            tmp2.append(tmp[i])
+    
+    tmp2 = rot(tmp2)
+    tmp2 = rot(tmp2)
+    tmp2 = rot(tmp2)
+    tmp_h = len(tmp2)
+    for i in range(tmp_h):
+        print("".join(tmp2[i]))
 
 
 """
