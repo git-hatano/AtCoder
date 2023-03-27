@@ -22,8 +22,25 @@ ans = " ".join([str(x) for x in a])
 # def A():
 
 
+def divisor_list(num):
+    divisors = []
+    for i in range(1, int(num**0.5)+1):
+        if num % i == 0:
+            divisors.append(i)  
+            if i**2 == num:
+                continue
+            divisors.append(int(num/i))
+    return sorted(divisors)
 
-# def B():
+def B():
+    n = int(input())
+    ans = 0
+    for i in range(1, n+1):
+        if i%2==1:
+            l = divisor_list(i)
+            if len(l)==8:
+                ans += 1
+    print(ans)
 
 
 def C():
