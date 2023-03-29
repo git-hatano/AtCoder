@@ -23,8 +23,22 @@ ans = " ".join([str(x) for x in a])
 
 
 
-# def B():
-
+def B():
+    s = input()
+    t = input()
+    n = len(s)
+    ans = False
+    for i in range(n):
+        ok = True
+        for j in range(n):
+            if s[j]!=t[j]:
+                ok = False
+                s = s[1:] + s[0]
+                break
+        if ok:
+            ans = True
+            break
+    print("Yes" if ans else "No")
 
 
 def C():

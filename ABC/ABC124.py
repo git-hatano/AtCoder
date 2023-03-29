@@ -64,15 +64,91 @@ def C():
 
 
 # def D():
-import sys
-from collections import Counter
-n, k = map(int, input().split())
-s = [int(x) for x in input()]
-counter = Counter(s)
+# from collections import defaultdict
+# n, k = map(int, input().split())
+# s = [int(x) for x in input()]
 
-if 1 in counter and counter[1]==n:
-    ans = n
+# a = [0]*(n+1)
+# for i in range(n):
+#     if s[i]==0:
+#         a[i+1] = a[i]+1
+
+# b = [0]*(n+1)
+# for i in reversed(range(n+1)):
+#     if i==n and a[i]>0:
+#         b[i] = a[i]
+# print()
+
+
+def D_ans_TLE():
+    n, k = map(int, input().split())
+    s = [int(x) for x in input()]
+    nums = []
+    now = 1 #今見てる数
+    cnt = 0 #nowがいくつ並ぶか
+    for i in range(n):
+        if s[i]==now:
+            cnt += 1
+        else:
+            nums.append(cnt)
+            now = 1-now #0/1を切り替える
+            cnt = 1
+    if cnt>0:
+        nums.append(cnt)
+    #1-0-1-0-1みたいな配列が欲しい
+    #1-0-1-0みたいに終わってたら、適当に1つ加える
+    nums.append(0)
+
+    add = 2*k+1
+    ans = 0
+    for i in range(0, len(nums), 2):#1-0-1-0-1..の1から始めるので偶数番目だけを見る
+        tmp = 0
+        left = i
+        right = min(i+add, len(nums))
+        for j in range(left, right):
+            tmp += nums[j]
+        ans = max(ans, tmp)
     print(ans)
-    sys.exit()
 
 
+"""
+尺取法
+"""
+def D_ans():
+    n, k = map(int, input().split())
+    s = [int(x) for x in input()]
+    nums = []
+    now = 1 #今見てる数
+    cnt = 0 #nowがいくつ並ぶか
+    for i in range(n):
+        if s[i]==now:
+            cnt += 1
+        else:
+            nums.append(cnt)
+            now = 1-now #0/1を切り替える
+            cnt = 1
+    if cnt>0:
+        nums.append(cnt)
+    #1-0-1-0-1みたいな配列が欲しい
+    #1-0-1-0みたいに終わってたら、適当に1つ加える
+    nums.append(0)
+
+    add = 2*k+1
+    ans = 0
+    left = 0
+    right = 0
+    tmp = 0 #[left, right)のsum
+    #1-0-1-0-1..の1から始めるので偶数番目だけを見る
+    for i in range(0, len(nums), 2):
+        nextleft = i
+        nextright = min(i+add, len(nums))
+        #左端を移動させる
+        while nextleft>left:
+            tmp -= nums[left]
+            left += 1
+        #右端を移動させる
+        while nextright>right:
+            tmp += nums[right]
+            right += 1
+        ans = max(ans, tmp)
+    print(ans)

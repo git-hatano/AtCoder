@@ -97,3 +97,69 @@ def D_WA():
     for i in range(n):
         print(" ".join([str(x) for x in g[i]]))
 
+
+def D_WA2():
+    import math
+    n, m = map(int, input().split())
+    v = 10**6
+    r = int(math.sqrt(m)+1)
+    a = [[v]*(n) for i in range(n)]
+    a[0][0] = 0
+    #右上が残る
+    for i in range(n):
+        for j in range(n):
+            if a[i][j]<v:
+                #半径rの範囲を探索 ###TLE
+                for ri in range(-r, r+1):
+                    for rj in range(-r, r+1):
+                        k = i+ri
+                        l = j+rj
+                        if 0<=k<n and 0<=l<n:
+                            d = (i-k)**2+(j-l)**2
+                            if d==m:
+                                a[k][l] = min(a[k][l], a[i][j]+1)
+    #左下を転置して置き換えればいいのでは?
+    for i in range(n):
+        for j in range(i, n):
+            a[i][j] = a[j][i]
+    #output
+    for i in range(n):
+        print(" ".join([str(x) for x in a[i]]))
+
+
+def D_ans():
+    from collections import deque
+    n, m = map(int, input().split())
+    #距離がsqrt(m)になるベクトルの組み合わせを探索
+    dij = []
+    for di in range(-n, n+1):
+        for dj in range(-n, n+1):
+            if di*di+dj*dj==m:
+                dij.append([di, dj])
+
+    #BFSで最短距離を探す
+    inf = 10**9
+    dist = [[inf]*(n) for i in range(n)]
+    que = deque([])
+
+    def push(i, j, d):
+        if dist[i][j]!=inf:
+            return
+        dist[i][j] = d
+        que.append([i, j])
+        
+    push(0, 0, 0)#開始位置をキューにpush
+    while len(que)>0:
+        i, j = que.popleft()
+        for di, dj in dij:
+            ni = i+di
+            nj = j+dj
+            if 0<=ni<n and 0<=nj<n:
+                push(ni, nj, dist[i][j]+1)
+
+    #output
+    for i in range(n):
+        for j in range(n):
+            if dist[i][j]==inf:
+                dist[i][j] = -1
+        print(" ".join([str(x) for x in dist[i]]))
