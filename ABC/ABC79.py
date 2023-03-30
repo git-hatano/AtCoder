@@ -26,6 +26,17 @@ ans = " ".join([str(x) for x in a])
 # def B():
 
 
+def C_ans():
+    from itertools import product
+    s = input()
+    for seq in product(["+", "-"], repeat=3):
+        # print(seq)
+        query = f"{s[0]}{seq[0]}{s[1]}{seq[1]}{s[2]}{seq[2]}{s[3]}"
+        if eval(query)==7:
+            ans = f"{query}=7"
+            print(ans)
+            break
+
 
 """
 #ワーシャルフロイド法
@@ -35,7 +46,7 @@ ans = " ".join([str(x) for x in a])
 
 前提知識（ワーシャルフロイド法）以外の方針は良かった
 """
-def C_ans():
+def D_ans():
     h, w = map(int, input().split())
     c = [list(map(int, input().split())) for _ in range(10)]
     a = [list(map(int, input().split())) for _ in range(h)]
