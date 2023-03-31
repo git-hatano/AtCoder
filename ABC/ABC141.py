@@ -57,5 +57,56 @@ def C():
             print("No")
 
 
-# def D():
+def D_WA():
+    import math
+    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
+    a.sort(reverse=True)
+    #大きい額から割引券を使う
+    costs = []
+    for i in range(n):
+        if a[i]>2 and m>0:
+            x = a[i]//2
+            y = min(m, int(math.log2(x)))
+            costs.append(a[i]//(2**y))
+            m -= y
+        else:
+            costs.append(a[i])
+    #まだ余っていたら使いきる
+    costs.sort(reverse=True)
+    for i in range(n):
+        if m>0:
+            if costs[i]==1:
+                costs[i] //= 2 #=0
+                m -= 1
+            else:
+                y = min(m, int(math.log2(costs[i])))
+                costs[i] //= 2**y
+                m -= y
+    ans = sum(costs)
+    if m>=ans:
+        ans = 0
+    print(ans)
 
+
+"""
+優先度付きque
+を使って大きいものからひたすら割引券を使っていく
+"""
+def D_ans():
+    import heapq
+    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
+    que = [-x for x in a]
+    heapq.heapify(que)
+
+    while m>0:
+        minima = heapq.heappop(que)
+        minima *= -1#反転しないと//2がうまくいかない?
+        minima //= 2
+        minima *= -1
+        heapq.heappush(que, minima)
+        m -= 1
+
+    ans = -1*sum(que)
+    print(ans)

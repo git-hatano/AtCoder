@@ -53,5 +53,37 @@ def C():
     print(ans)
 
 
-# def D():
+def D():
+    import math
+    def is_prime(n):
+        if n == 1: 
+            return False
+        for i in range(2, int(math.sqrt(n)) + 1):
+            if n % i == 0:
+                return False
+        return True
 
+    def divisor_list(num):
+        divisors = []
+        for i in range(1, int(num**0.5)+1):
+            if num % i == 0:
+                divisors.append(i)  
+                if i**2 == num:
+                    continue
+                divisors.append(int(num/i))
+        return sorted(divisors)
+
+    a, b = map(int, input().split())
+    #それぞれの公約数を計算
+    da = divisor_list(a)
+    db = divisor_list(b)
+    #共通の公約数を集約
+    d = set(da) & set(db)
+    #残った公約数が素数か判定
+    s = set()
+    s.add(1)
+    for i in d:
+        if is_prime(i):#公約数が意外と少ないから計算量が足りる
+            s.add(i)
+    ans = len(s)
+    print(ans)

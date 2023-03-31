@@ -74,5 +74,26 @@ def C():
     print(ans)
 
 
-# def D():
+def D():
+    n = int(input())
+    mod = 10**9+7
+    ans = 0
 
+    a = [0]*(2000+1)
+    a[3] = 1
+    for i in range(4, n+1):
+        for j in range(i):
+            z = i-j
+            if j<=z:
+                if j==0:
+                    a[i] += 1
+                    a[i] %= mod
+                elif j>=3 and z>=3:
+                    if j==z:
+                        a[i] += a[j]
+                        a[i] %= mod
+                    else:
+                        a[i] += a[j]+a[z]
+                        a[i] %= mod
+    ans = a[n]
+    print(ans)
