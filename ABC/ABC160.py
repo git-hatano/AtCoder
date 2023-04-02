@@ -56,5 +56,37 @@ def C_ans():
     print(ans)
 
 
-# def D():
+def D():
+    from collections import defaultdict, deque
+    n, x, y = map(int, input().split())
+    g = defaultdict(list)
+    for i in range(n-1):
+        a = i
+        b = i+1
+        g[a].append(b)
+        g[b].append(a)
+    x -= 1
+    y -= 1
+    g[x].append(y)
+    g[y].append(x)
+    #BFS
+    ans = defaultdict(int)
+    inf = 10**9
+    for i in range(n):
+        cur = i
+        que = deque([])
+        que.append(cur)
+        dist = [inf]*n
+        dist[cur] = 0
+        while len(que)>0:
+            cur = que.popleft()
+            for v in g[cur]:
+                if dist[v]==inf:
+                    dist[v] = dist[cur]+1
+                    que.append(v)
+        for j in range(n):
+            ans[dist[j]] += 1
+    #output
+    for k in range(1, n):
+        print(ans[k]//2)
 
