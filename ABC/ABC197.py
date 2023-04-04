@@ -104,7 +104,47 @@ def C_ans():
         now ^= o
         ans = min(ans, now)
     print(ans)
-    
-    
-# def D():
+
+
+"""
+任意の点(x,y)を中心点(cx,xy)周りに, 角度thetaだけ回転
+サンプルは通るがWA: 誤差が大きい?
+"""
+def f(x, y, cx, cy, theta):
+    import math
+    theta = math.radians(theta)
+    new_x = x*math.cos(theta) - y*math.sin(theta) + cx - cx*math.cos(theta) + cy*math.sin(theta)
+    new_y = x*math.sin(theta) + y*math.cos(theta) + cy - cx*math.sin(theta) - cy*math.cos(theta)
+    return new_x, new_y
+
+def D_WA():
+    n = int(input())
+    x0, y0 = map(int, input().split())
+    xh, yh = map(int, input().split())
+    #内角の和
+    deg_total = 180*(n-2)
+    #二等辺三角形の底角の大きさ
+    deg_bottom = deg_total//(n*2)
+    #二等辺三角形の中心核の大きさ
+    deg_top = 180 - deg_bottom*2
+    #中心の座標
+    cx = (xh+x0)/2
+    cy = (yh+y0)/2
+
+    x1, y1 = f(x0, y0, cx, cy, deg_top)
+    print(f"{x1} {y1}")
+
+
+def D():
+    n = int(input())
+    x0, y0 = map(int, input().split())
+    xh, yh = map(int, input().split())
+    #二等辺三角形の中心核の大きさ #WAではここで誤差を稼いでしまった
+    deg_top = 360/n
+    #中心の座標
+    cx = (xh+x0)/2
+    cy = (yh+y0)/2
+
+    x1, y1 = f(x0, y0, cx, cy, deg_top)
+    print(f"{x1} {y1}")
 
