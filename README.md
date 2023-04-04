@@ -418,6 +418,16 @@ def rotation(u, t, deg=True):
     return  np.dot(R, u)
 ```
 
+任意の点(x,y)を中心点(cx,xy)周りに, 角度thetaだけ回転 ([計算式](https://imagingsolution.net/math/rotate-around-point/))
+```python
+def affine(x, y, cx, cy, theta):
+    import math
+    theta = math.radians(theta)
+    new_x = x*math.cos(theta) - y*math.sin(theta) + cx - cx*math.cos(theta) + cy*math.sin(theta)
+    new_y = x*math.sin(theta) + y*math.cos(theta) + cy - cx*math.sin(theta) - cy*math.cos(theta)
+    return new_x, new_y
+```
+
 ### 10進数の数字を26進数（アルファベット）に変換
 再帰を使うことで進数変換ができる
 ```python
