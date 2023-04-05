@@ -51,5 +51,69 @@ def C():
     print(sums[-1])
 
 
-# def D():
+"""
+どうしたら効率良く各頂点にスコアを与えられるか
+BFSで予め親子関係を作っておく?
+Unionfined?
+Segment木?
+わかんね
+"""
+def D_WA():
+    from collections import defaultdict, deque
+    n, q = map(int, input().split())
+    g = defaultdict(list)
+    for _ in range(n-1):
+        a, b = map(int, input().split())
+        a -= 1
+        b -= 1
+        g[a].append(b)
+        g[b].append(a)
 
+    score = [0]*n
+    par = [-1]*n
+    s = set([0])
+    que = deque([0])
+    while len(que)>0:
+        cur = que.popleft()
+        for v in g[cur]:
+            if v not in s:
+                par[v] = cur
+                que.append(v)
+                s.add(v)
+
+    print(" ".join([str(x) for x in score]))
+
+
+
+"""
+dfsで根から順番にスコアを与えていく
+木上でimos法をすると言うらしい
+"""
+def D_ans():
+    import sys
+    sys.setrecursionlimit(10**9)
+    from collections import defaultdict
+    n, q = map(int, input().split())
+    g = defaultdict(list)
+    for _ in range(n-1):
+        a, b = map(int, input().split())
+        a -= 1
+        b -= 1
+        g[a].append(b)
+        g[b].append(a)
+
+    val = [0]*n
+    def dfs(cur, par=-1):
+        for to in g[cur]:
+            if par!=to:
+                val[to] += val[cur]
+                dfs(to, cur)
+    #予めスコアの初期値を格納
+    for i in range(q):
+        p, x = map(int, input().split())
+        p -= 1
+        val[p] += x
+    #DFSで根から子にスコアを付与していく
+    dfs(0)
+
+    print(" ".join([str(x) for x in val]))

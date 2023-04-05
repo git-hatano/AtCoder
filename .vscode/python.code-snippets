@@ -178,7 +178,7 @@
 
 	"set recursion limit": {
 		"scope": "python",
-		"prefix": "srl",
+		"prefix": "rec",
 		"body": [
 			"import sys",
 			"sys.setrecursionlimit(10**9)",

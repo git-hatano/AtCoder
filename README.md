@@ -418,7 +418,7 @@ def rotation(u, t, deg=True):
     return  np.dot(R, u)
 ```
 
-任意の点(x,y)を中心点(cx,xy)周りに, 角度thetaだけ回転 ([計算式](https://imagingsolution.net/math/rotate-around-point/))
+任意の点(x,y)を中心点(cx,cy)周りに, 角度thetaだけ回転 ([計算式](https://imagingsolution.net/math/rotate-around-point/))
 ```python
 def affine(x, y, cx, cy, theta):
     import math
