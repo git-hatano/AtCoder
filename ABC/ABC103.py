@@ -20,7 +20,12 @@ ans = " ".join([str(x) for x in a])
 '''
 
 # def A():
-
+a = list(map(int, input().split()))
+a.sort()
+ans = 0
+for i in range(2):
+    ans += abs(a[i+1] - a[i])
+print(ans)
 
 
 def B():

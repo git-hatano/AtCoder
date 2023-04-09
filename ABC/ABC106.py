@@ -19,7 +19,10 @@ print("Yes" if ans else "No")
 ans = " ".join([str(x) for x in a])
 '''
 
-# def A():
+def A():
+    a, b = map(int, input().split())
+    ans = a*b -a -b +1
+    print(ans)
 
 
 def divisor_list(num):
