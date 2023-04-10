@@ -52,5 +52,83 @@ def C():
     print(ans)
 
 
-# def D():
 
+def f(cnt, k):
+    scores = []
+    for i in range(1, 10):
+        if cnt[i]+1<=k:
+            cnt[i] += 1
+            tmp = 0
+            for j in range(1, 10):
+                tmp += j*(10**cnt[j])
+            scores.append(tmp)
+            cnt[i] -= 1
+    return scores
+
+"""
+下記の文章を反映できていない
+1, 2, …, 9 はそれぞれ、SとTに合計K回までしか出現しない
+"""
+def D_WA():
+    from collections import Counter
+    k = int(input())
+    s = [int(x) for x in input()[:-1]]
+    t = [int(x) for x in input()[:-1]]
+
+    cnt_s = Counter(s)
+    cnt_t = Counter(t)
+
+    s_scores = f(cnt_s, k)
+    t_scores = f(cnt_t, k)
+
+    win = 0
+    cases = len(s_scores)*len(t_scores)
+    for i in range(len(s_scores)):
+        for j in range(len(t_scores)):
+            if s_scores[i]>t_scores[j]:
+                win += 1
+
+    ans = win/cases
+    print(ans)
+
+
+#引数sのスコアを返す
+def score(x):
+    cnt = [0]*10
+    for i in range(len(x)):
+        cnt[x[i]] += 1
+    ans = 0
+    for i in range(1, 10):
+        ans += i*(10**cnt[i])
+    return ans
+
+def D_ans():
+    k = int(input())
+    s = [int(x) for x in input()[:-1]]
+    t = [int(x) for x in input()[:-1]]
+    cnt = [k]*10 #出すことができるカードの集合
+    #既に場にあるカードは外す
+    for i in range(4):
+        cnt[s[i]] -= 1
+    for i in range(4):
+        cnt[t[i]] -= 1
+
+    ans = 0
+    #sの#とtの#に異なるものが入るとき
+    for i in range(1, 10):
+        if cnt[i]==0:
+            continue
+        for j in range(1, 10):
+            if i==j or cnt[j]==0:
+                continue
+            if score(s+[i]) > score(t+[j]):
+                ans += cnt[i]*cnt[j]
+    #sの#とtの#に同じものが入るとき
+    for i in range(1, 10):
+        if cnt[i]<2: #少なくとも残りで2枚以上存在しないとなり得ない
+            continue
+        if score(s+[i]) > score(t+[i]):
+            ans += cnt[i] * (cnt[i]-1)
+
+    n = 9*k-8
+    print(ans / n / (n-1))
