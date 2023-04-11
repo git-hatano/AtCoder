@@ -162,7 +162,7 @@
 		"scope": "python",
 		"prefix": "inf",
 		"body": [
-			"x = float('inf')",
+			"inf = float('inf')",
 		],
 		"description": "無限大の初期値を用意"
 	},
