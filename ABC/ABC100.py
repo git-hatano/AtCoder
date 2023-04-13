@@ -23,8 +23,11 @@ ans = " ".join([str(x) for x in a])
 
 
 
-# def B():
-
+def B():
+    d, n = map(int, input().split())
+    if n==100:
+        n += 1
+    print(f"{n}{'00'*d}")
 
 
 def C():
