@@ -54,26 +54,71 @@ def B():
     print("Yes" if ans else "No")
 
 
-# def C():
-from collections import defaultdict
-n = int(input())
-q = int(input())
+def C():
+    from collections import defaultdict
+    n = int(input())
+    q = int(input())
 
-boxes = defaultdict(list)
-poses = defaultdict(set)
-for i in range(q):
-    query = list(map(int, input().split()))
-    i = query[1]
-    if query[0]==1:
-        j = query[2]
-        boxes[j].append(i)
-        poses[i].add(j)
-    elif query[0]==2:
-        print(" ".join([str(x) for x in boxes[i]]))
-    else:
-        for p in poses[i]:
-            print(" ".join([str(x) for x in boxes[p]]))
+    boxes = defaultdict(list)
+    cards = defaultdict(list)
+    for i in range(q):
+        query = list(map(int, input().split()))
+        i = query[1]
+        if query[0]==1:
+            j = query[2]
+            boxes[j].append(i)
+            cards[i].append(j)
+        elif query[0]==2:
+            boxes[i] = sorted(boxes[i])
+            print(" ".join([str(x) for x in boxes[i]]))
+        else:
+            cards[i] = sorted(list(set(cards[i])))
+            print(" ".join([str(x) for x in cards[i]]))
 
 
-# def D():
+def D_TLE():
+    from collections import deque
+    q = int(input())
+    s = deque([1])
+    mod = 998244353
+    for i in range(q):
+        query = list(input().split())
+        query[0] = int(query[0])
+        if query[0]==1:
+            x = int(query[1])
+            s.append(x)
+        elif query[0]==2:
+            s.popleft()
+        else:
+            ans = "".join([str(x) for x in s]) #ここがネック
+            ans = int(ans) % mod
+            print(ans)
+
+
+"""
+文字列やリストではなく、
+そもそも数字で管理しておけばよかった
+
+繰り返し二乗法(pow)
+を使わないと累乗でTLEになる
+"""
+def D_ans():
+    from collections import deque
+    q = int(input())
+    mod = 998244353
+    s = deque([1])
+    r = 1
+    for i in range(q):
+        query = list(map(int, input().split()))
+        if query[0]==1:
+            x = query[1]
+            s.append(x)
+            r = (10*r + x) % mod
+        elif query[0]==2:
+            y = s.popleft()
+            # r = r - y * (10**len(s) % mod) ##遅い
+            r = r - y * (pow(10, len(s), mod)%mod)
+            r %= mod
+        else:
+            print(r)
 
