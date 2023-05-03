@@ -78,5 +78,67 @@ def C():
     print(" ".join(str(x) for x in ans[1:]))
 
 
-# def D():
+import math
+def sieve_of_eratosthenes(n):
+    prime = [True for i in range(n+1)]
+    prime[0] = False
+    prime[1] = False
+    sqrt_n = math.ceil(math.sqrt(n))
+    for i in range(2, sqrt_n):
+        if prime[i]:
+            for j in range(2*i, n+1, i):
+                prime[j] = False
+    return prime
 
+def D_TLE():
+    from itertools import combinations
+    n = int(input())
+    root_n = int(math.sqrt(n))
+    prime = sieve_of_eratosthenes(root_n)
+
+    facts = []
+    for i in range(len(prime)):
+        if prime[i]:
+            facts.append(i)
+    ans = 0
+    for c in combinations(facts, 3):
+        v = c[0]**2 * c[1] * c[2]**2
+        if v <= n:
+            ans += 1
+    print(ans)
+
+
+"""
+素数の探索範囲の最大値の考察
+枝刈りが大切
+"""
+def D_ans():
+    n = int(input())
+    ma = 300005 # (10**12)/(2**2 * 3)
+    #素数を探索
+    prime = sieve_of_eratosthenes(ma)
+    p = []
+    for i in range(len(prime)):
+        if prime[i]:
+            p.append(i)
+    #答えを探索
+    ans = 0
+    sz = len(p)
+    for i in range(sz):
+        #枝刈り1
+        vi = p[i]*p[i]*p[i+1]*p[i+2]*p[i+2]
+        if vi>n: break
+        for j in range(i+1, sz):
+            #枝刈り2
+            vi = p[i]*p[i]*p[j]*p[j+1]*p[j+1]
+            if vi>n: break
+            for k in range(j+1, sz):
+                v = p[i]*p[i]*p[j]
+                #枝刈り3
+                if v>n: break
+                v *= p[k]
+                if v>n: break
+                v *= p[k]
+                if v>n: break
+                ans += 1
+    print(ans)
