@@ -107,5 +107,40 @@ def C_ans():
     print(max(s))
 
 
-# def D():
+"""
+初期値はどう決める？
+被っているやつは捨てて良い？
+"""
+def D():
+    import sys
+    from collections import Counter
+    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
 
+    sum_a = sum(a)
+    cnt_a = Counter(a)
+    cnt_a = sorted(cnt_a.items(), key=lambda x: x[0])
+
+    k = len(cnt_a)
+    if k==m:
+        print(0)
+        sys.exit()
+
+    p = 0
+    for i in range(k):
+        if cnt_a[(i+1)%k][0] != (cnt_a[i][0]+1)%m:
+            p = i
+            break
+
+    s = [0]*200005
+    for i in range(k):
+        j = (p-i+k)%k
+        s[j] = sum_a
+        if cnt_a[(j+1)%k][0] == (cnt_a[j][0]+1)%m:
+            s[j] = s[(j+1)%k]
+        s[j] -= cnt_a[j][0] * cnt_a[j][1]
+
+    ans = sum_a
+    for i in range(k):
+        ans = min(ans, s[i])
+    print(ans)
